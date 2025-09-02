@@ -111,6 +111,7 @@ namespace EvilDecompiler.ByteCode.Instruction
                     list.Add(new QuickJsOperandNPopU16(reader.ReadUInt16(), reader.ReadUInt16()));
                     break;
 
+                // label与pc对应
                 case QuickJsOPCodeFormat.OP_FMT_label8:
                     list.Add(new QuickJsOperandLabel8(reader.ReadSByte()));
                     break;
