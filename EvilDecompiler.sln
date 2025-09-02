@@ -17,6 +17,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilDecompiler.JsObject", "EvilDecompiler.JsObject\EvilDecompiler.JsObject.csproj", "{A44DDB59-31B2-4F89-8E28-09F76E86429F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilDecompiler.GUI", "EvilDecompiler.GUI\EvilDecompiler.GUI.csproj", "{93F1AE82-0C39-4880-B7E2-E447A0E27BEE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A44DDB59-31B2-4F89-8E28-09F76E86429F} = {A44DDB59-31B2-4F89-8E28-09F76E86429F}
+		{EA44D897-19BB-467D-962A-44DDF9D121B6} = {EA44D897-19BB-467D-962A-44DDF9D121B6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
