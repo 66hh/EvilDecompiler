@@ -68,20 +68,44 @@ namespace EvilDecompiler.JsObject
                 case ObjectTag.BC_TAG_STRING:
                     return ReadJsString();
 
+                case ObjectTag.BC_TAG_OBJECT:
+                    return ReadJsProperties();
+
+                case ObjectTag.BC_TAG_ARRAY:
+                case ObjectTag.BC_TAG_TEMPLATE_OBJECT:
+                    return ReadJsArray(tag);
+
                 case ObjectTag.BC_TAG_FUNCTION_BYTECODE:
                     return ReadJsFunction();
 
                 case ObjectTag.BC_TAG_MODULE:
                     return ReadJsModule();
-
-                case ObjectTag.BC_TAG_OBJECT:
-                    return ReadJsProperties();
                 
                 // TODO
 
                 default:
                     throw new Exception($"Unsupported Tag! Value: {tag}");
             }
+        }
+
+        JsArray ReadJsArray(ObjectTag tag)
+        {
+            int count = reader.ReadLeb128();
+
+            Types.Objects.JsObject? template = null;
+            List<Types.Objects.JsObject> array = new List<Types.Objects.JsObject>();
+
+            for (int i = 0; i < count; i++)
+            {
+                array.Add(ReadObjectRec());
+            }
+
+            if (tag == ObjectTag.BC_TAG_TEMPLATE_OBJECT)
+            {
+                template = ReadObjectRec();
+            }
+
+            return new JsArray(array, template);
         }
 
         JsProperties ReadJsProperties()
