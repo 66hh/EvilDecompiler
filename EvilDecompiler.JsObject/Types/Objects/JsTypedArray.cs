@@ -3,7 +3,7 @@
     public class JsTypedArray : JsObject
     {
 
-        public int ArrayTag;
+        public byte ArrayTag;
 
         public int Length;
 
@@ -11,7 +11,7 @@
 
         public JsObject ArrayBuffer;
 
-        public JsTypedArray(int tag, int len, int offset, JsObject buffer)
+        public JsTypedArray(byte tag, int len, int offset, JsObject buffer)
         {
             Tag = ObjectTag.BC_TAG_TYPED_ARRAY;
 

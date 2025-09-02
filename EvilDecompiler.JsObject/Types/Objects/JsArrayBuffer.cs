@@ -3,7 +3,7 @@
     public class JsArrayBuffer : JsObject
     {
 
-        byte[] Buffer;
+        public byte[] Buffer;
 
         public JsArrayBuffer(byte[] buffer)
         {

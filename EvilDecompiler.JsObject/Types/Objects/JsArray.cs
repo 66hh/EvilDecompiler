@@ -7,12 +7,9 @@
 
         public JsObject? Template;
 
-        public JsArray(List<JsObject> array, JsObject? template)
+        public JsArray(ObjectTag tag, List<JsObject> array, JsObject? template)
         {
-            if (template == null)
-                Tag = ObjectTag.BC_TAG_ARRAY;
-            else
-                Tag = ObjectTag.BC_TAG_TEMPLATE_OBJECT;
+            Tag = tag;
 
             Array = array;
             Template = template;

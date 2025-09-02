@@ -141,7 +141,7 @@ namespace EvilDecompiler.JsObject
 
         JsTypedArray ReadJsTypedArray()
         {
-            int arrayTag = reader.ReadByte();
+            byte arrayTag = reader.ReadByte();
             int len = reader.ReadLeb128();
             int offset = reader.ReadLeb128();
             Types.Objects.JsObject arrayBuffer = ReadObjectRec();
@@ -166,7 +166,7 @@ namespace EvilDecompiler.JsObject
                 template = ReadObjectRec();
             }
 
-            return new JsArray(array, template);
+            return new JsArray(tag, array, template);
         }
 
         JsProperties ReadJsProperties()

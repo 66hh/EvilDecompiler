@@ -87,6 +87,10 @@ namespace EvilDecompiler.JsObject
                     WriteJsString((JsString)obj);
                     break;
 
+                case ObjectTag.BC_TAG_OBJECT:
+                    WriteJsProperties((JsProperties)obj);
+                    break;
+
                 case ObjectTag.BC_TAG_FUNCTION_BYTECODE:
                     WriteJsFunction((JsFunctionBytecode)obj);
                     break;
@@ -95,15 +99,93 @@ namespace EvilDecompiler.JsObject
                     WriteJsModule((JsModule)obj);
                     break;
 
-                case ObjectTag.BC_TAG_OBJECT:
-                    WriteJsProperties((JsProperties)obj);
+                case ObjectTag.BC_TAG_ARRAY:
+                case ObjectTag.BC_TAG_TEMPLATE_OBJECT:
+                    WriteJsArray(tag, (JsArray)obj);
                     break;
 
-                // TODO
+                /*
+                // 不支持BigInt
+                case ObjectTag.BC_TAG_BIG_INT:
+                case ObjectTag.BC_TAG_BIG_FLOAT:
+                case ObjectTag.BC_TAG_BIG_DECIMAL:
+                */
+
+                case ObjectTag.BC_TAG_TYPED_ARRAY:
+                    WriteJsTypedArray((JsTypedArray)obj);
+                    break;
+
+                case ObjectTag.BC_TAG_ARRAY_BUFFER:
+                    WriteJsArrayBuffer((JsArrayBuffer)obj);
+                    break;
+
+                case ObjectTag.BC_TAG_SHARED_ARRAY_BUFFER:
+                    WriteJsSharedArrayBuffer((JsSharedArrayBuffer)obj);
+                    break;
+
+                case ObjectTag.BC_TAG_DATE:
+                    WriteJsDate((JsDate)obj);
+                    break;
+
+                case ObjectTag.BC_TAG_OBJECT_VALUE:
+                    WriteJsObjectVal((JsObjectVal)obj);
+                    break;
+                case ObjectTag.BC_TAG_OBJECT_REFERENCE:
+                    WriteJsObjectRef((JsObjectRef)obj);
+                    break;
+
 
                 default:
                     throw new Exception($"Unsupported Tag! Value: {tag}");
             }
+        }
+
+        public void WriteJsObjectRef(JsObjectRef obj)
+        {
+            writer.WriteLeb128(obj.Index);
+        }
+
+        public void WriteJsObjectVal(JsObjectVal obj)
+        {
+            WriteObjectRec(obj.Value);
+        }
+
+        public void WriteJsDate(JsDate obj)
+        {
+            WriteObjectRec(obj.Date);
+        }
+
+        public void WriteJsSharedArrayBuffer(JsSharedArrayBuffer obj)
+        {
+            writer.WriteLeb128(obj.Length);
+            writer.Write(obj.Pointer);
+        }
+
+        public void WriteJsArrayBuffer(JsArrayBuffer obj)
+        {
+            writer.WriteLeb128(obj.Buffer.Length);
+            writer.Write(obj.Buffer);
+        }
+
+        public void WriteJsTypedArray(JsTypedArray obj)
+        {
+            writer.Write(obj.ArrayTag);
+            writer.WriteLeb128(obj.Length);
+            writer.WriteLeb128(obj.Offset);
+            WriteObjectRec(obj.ArrayBuffer);
+        }
+
+        public void WriteJsArray(ObjectTag tag, JsArray obj)
+        {
+            writer.WriteLeb128(obj.Array.Count);
+
+            foreach (var item in obj.Array)
+            {
+                WriteObjectRec(item);
+            }
+
+            if (tag == ObjectTag.BC_TAG_TEMPLATE_OBJECT && obj.Template != null)
+                WriteObjectRec(obj.Template);
         }
 
         public void WriteJsProperties(JsProperties obj)
