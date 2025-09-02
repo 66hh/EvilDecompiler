@@ -4,6 +4,7 @@ using EvilDecompiler.JsObject.Types.Objects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -98,6 +99,7 @@ namespace EvilDecompiler.GUI
 
                     if (node != null)
                     {
+                        JsTree.Items.Clear();
                         var rootNode = new TreeItem("File").SetExpand();
                         ProcessNode(node, rootNode);
                         JsTree.Items.Add(rootNode);
