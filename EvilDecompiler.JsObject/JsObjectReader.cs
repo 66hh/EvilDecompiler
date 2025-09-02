@@ -1,6 +1,5 @@
 ﻿using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
-using System.Text;
 
 namespace EvilDecompiler.JsObject
 {
@@ -80,12 +79,74 @@ namespace EvilDecompiler.JsObject
 
                 case ObjectTag.BC_TAG_MODULE:
                     return ReadJsModule();
-                
-                // TODO
+
+                /*
+                // 不支持BigInt
+                case ObjectTag.BC_TAG_BIG_INT:
+                case ObjectTag.BC_TAG_BIG_FLOAT:
+                case ObjectTag.BC_TAG_BIG_DECIMAL:
+                */
+
+                case ObjectTag.BC_TAG_TYPED_ARRAY:
+                    return ReadJsTypedArray();
+
+                case ObjectTag.BC_TAG_ARRAY_BUFFER:
+                    return ReadJsArrayBuffer();
+
+                case ObjectTag.BC_TAG_SHARED_ARRAY_BUFFER:
+                    return ReadSharedArrayBuffer();
+
+                case ObjectTag.BC_TAG_DATE:
+                    return ReadJsDate();
+
+                case ObjectTag.BC_TAG_OBJECT_VALUE:
+                    return ReadJsObjectVal();
+
+                case ObjectTag.BC_TAG_OBJECT_REFERENCE:
+                    return ReadJsObjectRef();
 
                 default:
                     throw new Exception($"Unsupported Tag! Value: {tag}");
             }
+        }
+
+        JsDate ReadJsDate()
+        {
+            return new JsDate(ReadObjectRec());
+        }
+
+        JsObjectVal ReadJsObjectVal()
+        {
+            return new JsObjectVal(ReadObjectRec());
+        }
+
+        JsObjectRef ReadJsObjectRef()
+        {
+            return new JsObjectRef(reader.ReadLeb128());
+        }
+
+        JsSharedArrayBuffer ReadSharedArrayBuffer()
+        {
+
+            int len = reader.ReadLeb128();
+            ulong ptr = reader.ReadUInt64();
+
+            return new JsSharedArrayBuffer(len, ptr);
+        }
+
+        JsArrayBuffer ReadJsArrayBuffer()
+        {
+            return new JsArrayBuffer(reader.ReadBytes(reader.ReadLeb128()));
+        }
+
+        JsTypedArray ReadJsTypedArray()
+        {
+            int arrayTag = reader.ReadByte();
+            int len = reader.ReadLeb128();
+            int offset = reader.ReadLeb128();
+            Types.Objects.JsObject arrayBuffer = ReadObjectRec();
+
+            return new JsTypedArray(arrayTag, len, offset, arrayBuffer);
         }
 
         JsArray ReadJsArray(ObjectTag tag)

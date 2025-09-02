@@ -1,8 +1,6 @@
 ﻿using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
 using EvilDecompiler.JsObject.Utils;
-using System.Reflection.PortableExecutable;
-using System.Text;
 
 namespace EvilDecompiler.JsObject
 {

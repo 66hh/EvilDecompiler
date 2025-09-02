@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EvilDecompiler.JsObject.Utils
+﻿namespace EvilDecompiler.JsObject.Utils
 {
     public class FlagUtils
     {

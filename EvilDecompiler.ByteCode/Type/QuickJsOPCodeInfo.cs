@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace EvilDecompiler.ByteCode.Type
+﻿namespace EvilDecompiler.ByteCode.Type
 {
     public class QuickJsOPCodeInfo
     {
