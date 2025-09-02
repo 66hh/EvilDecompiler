@@ -12,7 +12,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         private int pc;
         private QuickJsOPCode opCode;
-        private IQuickJsOperand[] operandObjects;
+        private QuickJsOperand[] operandObjects;
 
         public QuickJsInstruction(int pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod)
         {
@@ -31,7 +31,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             return opCode;
         }
 
-        public IQuickJsOperand[] getParams()
+        public QuickJsOperand[] getParams()
         {
             return operandObjects;
         }
@@ -41,14 +41,41 @@ namespace EvilDecompiler.ByteCode.Instruction
             return pc;
         }
 
-        private IQuickJsOperand[] parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod)
+        private QuickJsOperand[] parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod)
         {
             Reader reader = new Reader(new MemoryStream(operand));
-            List<IQuickJsOperand> list = new List<IQuickJsOperand>();
+            List<QuickJsOperand> list = new List<QuickJsOperand>();
 
-            switch (getFormat())
+            QuickJsOPCodeFormat format = getFormat();
+
+            switch (format)
             {
 
+                case QuickJsOPCodeFormat.OP_FMT_none:
+                    list.Add(new QuickJsOperandNone());
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_none_int:
+                    list.Add(new QuickJsOperandNoneInt(opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_push_0));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_npopx:
+                    list.Add(new QuickJsOperandNPopX(opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_call0));
+                    break;
+
+                // 以上Format均是伪操作数(无实际字节)
+
+                case QuickJsOPCodeFormat.OP_FMT_u8:
+                    list.Add(new QuickJsOperandU8(reader.ReadByte()));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_i8:
+                    list.Add(new QuickJsOperandI8(reader.ReadSByte()));
+                    break;
+
+                default:
+                    list.Add(new QuickJsOperandRaw(operand, format));
+                    break;
             }
 
             return list.ToArray();
