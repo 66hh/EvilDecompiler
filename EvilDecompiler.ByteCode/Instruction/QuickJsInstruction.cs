@@ -1,5 +1,6 @@
 ﻿using EvilDecompiler.ByteCode.Operand;
 using EvilDecompiler.ByteCode.Type;
+using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
 using EvilDecompiler.JsObject.Utils;
 
@@ -14,11 +15,11 @@ namespace EvilDecompiler.ByteCode.Instruction
         private QuickJsOPCode opCode;
         private QuickJsOperand[] operandObjects;
 
-        public QuickJsInstruction(int pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod)
+        public QuickJsInstruction(int pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
         {
             this.pc = pc;
             this.opCode = opCode;
-            operandObjects = parseOperandByFormat(opCode, operand, quickJsMethod);
+            operandObjects = parseOperandByFormat(opCode, operand, quickJsMethod, atoms);
         }
 
         public QuickJsOPCodeFormat getFormat()
@@ -41,7 +42,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             return pc;
         }
 
-        private QuickJsOperand[] parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod)
+        private QuickJsOperand[] parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
         {
             Reader reader = new Reader(new MemoryStream(operand));
             List<QuickJsOperand> list = new List<QuickJsOperand>();
@@ -61,6 +62,19 @@ namespace EvilDecompiler.ByteCode.Instruction
 
                 case QuickJsOPCodeFormat.OP_FMT_npopx:
                     list.Add(new QuickJsOperandNPopX(opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_call0));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_none_var_ref:
+                    list.Add(new QuickJsOperandNoneVarRef((opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_get_var_ref0) % 4));
+                    break;
+
+
+                case QuickJsOPCodeFormat.OP_FMT_none_arg:
+                    list.Add(new QuickJsOperandNoneArg((opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_get_arg0) % 4));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_none_loc:
+                    list.Add(new QuickJsOperandNoneLoc((opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_get_loc0) % 4));
                     break;
 
                 // 以上Format均是伪操作数(无实际字节)
@@ -116,6 +130,26 @@ namespace EvilDecompiler.ByteCode.Instruction
                 case QuickJsOPCodeFormat.OP_FMT_const:
                     list.Add(new QuickJsOperandConst(reader.ReadUInt32(), quickJsMethod.CPool));
                     break;
+
+                case QuickJsOPCodeFormat.OP_FMT_atom_u8:
+                    list.Add(new QuickJsOperandAtomU8(reader.ReadUInt32(), reader.ReadByte(), atoms));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_atom_u16:
+                    list.Add(new QuickJsOperandAtomU16(reader.ReadUInt32(), reader.ReadUInt16(), atoms));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_atom:
+                    list.Add(new QuickJsOperandAtom(reader.ReadUInt32(), atoms));
+                    break;
+
+                // TODO
+                case QuickJsOPCodeFormat.OP_FMT_atom_label_u8:
+                case QuickJsOPCodeFormat.OP_FMT_atom_label_u16:
+                case QuickJsOPCodeFormat.OP_FMT_loc8:
+                case QuickJsOPCodeFormat.OP_FMT_loc:
+                case QuickJsOPCodeFormat.OP_FMT_arg:
+                case QuickJsOPCodeFormat.OP_FMT_var_ref:
 
                 default:
                     list.Add(new QuickJsOperandRaw(operand, format));
