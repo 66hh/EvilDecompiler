@@ -1,6 +1,7 @@
 ﻿using EvilDecompiler.ByteCode.Operand;
 using EvilDecompiler.ByteCode.Type;
 using EvilDecompiler.JsObject.Types.Objects;
+using EvilDecompiler.JsObject.Utils;
 
 
 namespace EvilDecompiler.ByteCode.Instruction
@@ -42,7 +43,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         private IQuickJsOperand[] parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod)
         {
-
+            Reader reader = new Reader(new MemoryStream(operand));
             List<IQuickJsOperand> list = new List<IQuickJsOperand>();
 
             switch (getFormat())
