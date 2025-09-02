@@ -44,5 +44,10 @@
             CPool = cpool;
         }
 
+        public override string ToString()
+        {
+            return "[bytecode "+ FunctionName.ToString() + "]";
+        }
+
     }
 }

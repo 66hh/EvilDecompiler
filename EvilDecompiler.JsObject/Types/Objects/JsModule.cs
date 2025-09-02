@@ -28,5 +28,10 @@
             FunctionObject = function;
         }
 
+        public override string ToString()
+        {
+            return "[module]";
+        }
+
     }
 }

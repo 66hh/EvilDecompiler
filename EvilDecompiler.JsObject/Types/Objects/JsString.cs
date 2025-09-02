@@ -39,5 +39,10 @@ namespace EvilDecompiler.JsObject.Types.Objects
             IsWide = wide;
             Raw = value;
         }
+
+        public override string ToString()
+        {
+            return Value;
+        }
     }
 }

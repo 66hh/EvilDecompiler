@@ -81,12 +81,40 @@ namespace EvilDecompiler.ByteCode.Instruction
                     list.Add(new QuickJsOperandI16(reader.ReadInt16()));
                     break;
 
+                case QuickJsOPCodeFormat.OP_FMT_u32:
+                    list.Add(new QuickJsOperandU32(reader.ReadUInt32()));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_i32:
+                    list.Add(new QuickJsOperandI32(reader.ReadInt32()));
+                    break;
+
                 case QuickJsOPCodeFormat.OP_FMT_npop:
                     list.Add(new QuickJsOperandNPop(reader.ReadUInt16()));
                     break;
 
                 case QuickJsOPCodeFormat.OP_FMT_npop_u16:
                     list.Add(new QuickJsOperandNPopU16(reader.ReadUInt16(), reader.ReadUInt16()));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_label8:
+                    list.Add(new QuickJsOperandLabel8(reader.ReadSByte()));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_label16:
+                    list.Add(new QuickJsOperandLabel16(reader.ReadInt16()));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_label:
+                    list.Add(new QuickJsOperandLabel(reader.ReadUInt32()));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_const8:
+                    list.Add(new QuickJsOperandConst8(reader.ReadByte(), quickJsMethod.CPool));
+                    break;
+
+                case QuickJsOPCodeFormat.OP_FMT_const:
+                    list.Add(new QuickJsOperandConst(reader.ReadUInt32(), quickJsMethod.CPool));
                     break;
 
                 default:

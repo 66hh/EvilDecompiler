@@ -32,5 +32,10 @@
         public static int Version = 1;
 
         public ObjectTag Tag = ObjectTag.BC_TAG_NONE;
+
+        public override string ToString()
+        {
+            return "[object]";
+        }
     }
 }

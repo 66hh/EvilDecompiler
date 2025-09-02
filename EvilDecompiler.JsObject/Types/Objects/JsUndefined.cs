@@ -6,5 +6,10 @@
         {
             Tag = ObjectTag.BC_TAG_UNDEFINED;
         }
+
+        public override string ToString()
+        {
+            return "undefined";
+        }
     }
 }

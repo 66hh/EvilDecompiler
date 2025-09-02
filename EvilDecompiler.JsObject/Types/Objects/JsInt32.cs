@@ -10,5 +10,10 @@
             Tag = ObjectTag.BC_TAG_INT32;
             Value = value;
         }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

@@ -6,5 +6,10 @@
         {
             Tag = ObjectTag.BC_TAG_NULL;
         }
+
+        public override string ToString()
+        {
+            return "null";
+        }
     }
 }
