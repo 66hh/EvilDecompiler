@@ -13,7 +13,8 @@
 
         public override string GetString()
         {
-            return "[pc: " + Value.ToString() + "]";
+            string addr = Value < 0 ? Value.ToString() : "+" + Value.ToString();
+            return "[pc: $" + addr + "]";
         }
 
         public override byte[] GetBytes()

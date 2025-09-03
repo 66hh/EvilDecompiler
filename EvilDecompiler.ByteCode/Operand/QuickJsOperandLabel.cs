@@ -1,4 +1,6 @@
-﻿namespace EvilDecompiler.ByteCode.Operand
+﻿using System.Reflection.Emit;
+
+namespace EvilDecompiler.ByteCode.Operand
 {
     public class QuickJsOperandLabel : QuickJsOperand
     {
@@ -13,7 +15,8 @@
 
         public override string GetString()
         {
-            return "[pc: " + Value.ToString() + "]";
+            string addr = Value < 0 ? Value.ToString() : "+" + Value.ToString();
+            return "[pc: $" + addr + "]";
         }
 
         public override byte[] GetBytes()

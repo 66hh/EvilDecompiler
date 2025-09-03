@@ -29,13 +29,15 @@ namespace EvilDecompiler.ByteCode.Operand
 
             JsString? str = Atoms.Get((int)Value);
 
+            string addr = Label < 0 ? Label.ToString() : "+" + Label.ToString();
+
             if (str == null)
             {
-                return "[atom: " + Value.ToString() + "],  [pc: " + Label.ToString() + ", ]" + U16.ToString();
+                return "[atom: " + Value.ToString() + "],  [pc: $" + addr + ", ]" + U16.ToString();
             }
             else
             {
-                return "\"" + str.Value + "\",  [pc: " + Label.ToString() + "], " + U16.ToString();
+                return "\"" + str.Value + "\",  [pc: $" + addr + "], " + U16.ToString();
             }
         }
 
