@@ -173,6 +173,9 @@ namespace EvilDecompiler.ByteCode.Instruction
                     break;
             }
 
+            if (reader.BaseStream.Position != reader.BaseStream.Length)
+                throw new Exception("OperandStream.Position != OperandStream.Length");
+
             return result;
         }
 

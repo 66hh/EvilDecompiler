@@ -19,7 +19,8 @@ namespace EvilDecompiler
                 JsFunctionBytecode? func = module.FunctionObject as JsFunctionBytecode;
                 if (func != null)
                 {
-                    QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func.Bytecode), func, atoms);
+                    JsFunctionBytecode func2 = (JsFunctionBytecode)((JsFunctionBytecode)func.CPool[0]).CPool[0];
+                    QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func2.Bytecode), func2, atoms);
                     QuickJsInstruction[] ins = disasm.ReadAllInstructions();
                     for (int i = 0; i < ins.Length; i++)
                     {
