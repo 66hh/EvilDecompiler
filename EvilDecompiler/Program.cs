@@ -26,6 +26,13 @@ namespace EvilDecompiler
                     {
                         Console.WriteLine(ins[i].ToString());
                     }
+
+                    byte[] data = new byte[func2.Bytecode.Length];
+                    QuickJsAssembler asm = new QuickJsAssembler(new MemoryStream(data));
+                    asm.WriteAllInstructions(ins);
+
+                    Console.WriteLine(BitConverter.ToString(func2.Bytecode).Replace("-", ""));
+                    Console.WriteLine(BitConverter.ToString(data).Replace("-", ""));
                 }
             }
 

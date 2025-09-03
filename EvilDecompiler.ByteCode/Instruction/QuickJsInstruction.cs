@@ -32,7 +32,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             return opCode;
         }
 
-        public QuickJsOperand getParams()
+        public QuickJsOperand getOperand()
         {
             return operandObjects;
         }

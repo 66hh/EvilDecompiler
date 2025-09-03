@@ -12,7 +12,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         QuickJsOPCodeFormat getFormat();
 
-        QuickJsOperand getParams();
+        QuickJsOperand getOperand();
     }
 
 }
