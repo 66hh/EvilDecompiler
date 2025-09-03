@@ -7,7 +7,7 @@
 
         public QuickJsOperandNoneVarRef(int num)
         {
-            Format = Type.QuickJsOPCodeFormat.OP_FMT_none_int;
+            Format = Type.QuickJsOPCodeFormat.OP_FMT_none_var_ref;
             Value = num;
         }
 

@@ -7,7 +7,7 @@
 
         public QuickJsOperandI8(sbyte num)
         {
-            Format = Type.QuickJsOPCodeFormat.OP_FMT_u8;
+            Format = Type.QuickJsOPCodeFormat.OP_FMT_i8;
             Value = num;
         }
 

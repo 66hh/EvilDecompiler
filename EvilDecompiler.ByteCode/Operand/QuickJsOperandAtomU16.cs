@@ -15,7 +15,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public QuickJsOperandAtomU16(uint num, ushort u16, AtomSet atoms)
         {
-            Format = Type.QuickJsOPCodeFormat.OP_FMT_u32;
+            Format = Type.QuickJsOPCodeFormat.OP_FMT_atom_u16;
             Value = num;
             U16 = u16;
             Atoms = atoms;

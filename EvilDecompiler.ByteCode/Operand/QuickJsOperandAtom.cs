@@ -12,7 +12,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public QuickJsOperandAtom(uint num, AtomSet atoms)
         {
-            Format = Type.QuickJsOPCodeFormat.OP_FMT_u32;
+            Format = Type.QuickJsOPCodeFormat.OP_FMT_atom;
             Value = num;
             Atoms = atoms;
         }

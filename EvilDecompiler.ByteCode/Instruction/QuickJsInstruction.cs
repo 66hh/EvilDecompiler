@@ -144,9 +144,14 @@ namespace EvilDecompiler.ByteCode.Instruction
                     list.Add(new QuickJsOperandAtom(reader.ReadUInt32(), atoms));
                     break;
 
-                // TODO
                 case QuickJsOPCodeFormat.OP_FMT_atom_label_u8:
+                    list.Add(new QuickJsOperandAtomLabelU8(reader.ReadUInt32(), reader.ReadUInt32(), reader.ReadByte(), atoms));
+                    break;
+
                 case QuickJsOPCodeFormat.OP_FMT_atom_label_u16:
+                    list.Add(new QuickJsOperandAtomLabelU16(reader.ReadUInt32(), reader.ReadUInt32(), reader.ReadUInt16(), atoms));
+                    break;
+
                 case QuickJsOPCodeFormat.OP_FMT_loc8:
                 case QuickJsOPCodeFormat.OP_FMT_loc:
                 case QuickJsOPCodeFormat.OP_FMT_arg:

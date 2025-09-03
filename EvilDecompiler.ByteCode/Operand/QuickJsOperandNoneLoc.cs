@@ -7,7 +7,7 @@
 
         public QuickJsOperandNoneLoc(int num)
         {
-            Format = Type.QuickJsOPCodeFormat.OP_FMT_none_int;
+            Format = Type.QuickJsOPCodeFormat.OP_FMT_none_loc;
             Value = num;
         }
 
