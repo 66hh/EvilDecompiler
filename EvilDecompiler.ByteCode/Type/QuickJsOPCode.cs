@@ -297,6 +297,9 @@
         public QuickJsOPCode(int opCode)
         {
             OPCode = (OPCodeValue) opCode;
+
+            if (OPCodeValue.OP_invalid > OPCode || OPCode > OPCodeValue.OP_typeof_is_function)
+                OPCode = OPCodeValue.OP_invalid;
         }
 
     }
