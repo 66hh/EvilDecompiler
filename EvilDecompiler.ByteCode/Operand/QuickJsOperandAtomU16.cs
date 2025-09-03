@@ -9,7 +9,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public uint Value;
 
-        public uint U16;
+        public ushort U16;
 
         public AtomSet Atoms;
 

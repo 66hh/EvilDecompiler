@@ -9,7 +9,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public uint Value;
 
-        public uint U8;
+        public byte U8;
 
         public AtomSet Atoms;
 
@@ -38,7 +38,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public override byte[] GetBytes()
         {
-            return ByteUtils.Combine(BitConverter.GetBytes(Value), BitConverter.GetBytes(U8));
+            return ByteUtils.Combine(BitConverter.GetBytes(Value), [U8]);
         }
 
     }
