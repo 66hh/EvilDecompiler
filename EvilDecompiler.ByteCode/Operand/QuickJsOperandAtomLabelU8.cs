@@ -31,11 +31,11 @@ namespace EvilDecompiler.ByteCode.Operand
 
             if (str == null)
             {
-                return "[atom: " + Value.ToString() + "], " + Label.ToString() + ", " + U8.ToString();
+                return "[atom: " + Value.ToString() + "], [pc: " + Label.ToString() + "], " + U8.ToString();
             }
             else
             {
-                return "\"" + str.Value + "\", " + Label.ToString() + ", " + U8.ToString();
+                return "\"" + str.Value + "\",  [pc: " + Label.ToString() + "], " + U8.ToString();
             }
         }
 

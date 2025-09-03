@@ -13,7 +13,7 @@
 
         public override string GetString()
         {
-            return Value.ToString();
+            return "loc" + Value.ToString();
         }
 
         public override byte[] GetBytes()
