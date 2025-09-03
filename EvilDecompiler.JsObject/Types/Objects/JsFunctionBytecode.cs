@@ -46,7 +46,7 @@
 
         public override string ToString()
         {
-            return "[bytecode "+ FunctionName.ToString() + "]";
+            return "[bytecode "+ GetHashCode().ToString() + "]";
         }
 
     }

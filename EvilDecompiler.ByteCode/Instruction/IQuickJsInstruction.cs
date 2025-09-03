@@ -6,7 +6,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
     public interface IQuickJsInstruction
     {
-        int getPC();
+        long getPC();
 
         QuickJsOPCode getOpCode();
 

@@ -11,11 +11,11 @@ namespace EvilDecompiler.ByteCode.Instruction
     public class QuickJsInstruction : IQuickJsInstruction
     {
 
-        private int pc;
+        private long pc;
         private QuickJsOPCode opCode;
         private QuickJsOperand operandObjects;
 
-        public QuickJsInstruction(int pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
+        public QuickJsInstruction(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
         {
             this.pc = pc;
             this.opCode = opCode;
@@ -37,7 +37,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             return operandObjects;
         }
 
-        public int getPC()
+        public long getPC()
         {
             return pc;
         }
@@ -175,6 +175,12 @@ namespace EvilDecompiler.ByteCode.Instruction
 
             return result;
         }
+
+        public override string ToString()
+        {
+            return pc.ToString() + ": " + opCode.Name + " " + operandObjects.GetString();
+        }
+
     }
 
 }

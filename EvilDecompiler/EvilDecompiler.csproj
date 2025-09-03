@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EvilDecompiler.ByteCode\EvilDecompiler.ByteCode.csproj" />
+    <ProjectReference Include="..\EvilDecompiler.JsObject\EvilDecompiler.JsObject.csproj" />
+  </ItemGroup>
+
 </Project>
