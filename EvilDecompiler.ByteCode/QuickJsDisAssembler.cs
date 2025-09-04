@@ -59,13 +59,79 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_get_arg2:
                 case QuickJsOPCode.OPCodeValue.OP_get_arg3:
                 case QuickJsOPCode.OPCodeValue.OP_get_loc:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc0:
                 case QuickJsOPCode.OPCodeValue.OP_get_loc1:
                 case QuickJsOPCode.OPCodeValue.OP_get_loc2:
                 case QuickJsOPCode.OPCodeValue.OP_get_loc3:
                 case QuickJsOPCode.OPCodeValue.OP_get_loc8:
                 case QuickJsOPCode.OPCodeValue.OP_get_var:
                 case QuickJsOPCode.OPCodeValue.OP_get_var_undef:
+                case QuickJsOPCode.OPCodeValue.OP_get_var_ref: // 暂时不知道var ref是咋和外面的变量对应的先写这里
+                case QuickJsOPCode.OPCodeValue.OP_get_var_ref0:
+                case QuickJsOPCode.OPCodeValue.OP_get_var_ref1:
+                case QuickJsOPCode.OPCodeValue.OP_get_var_ref2:
+                case QuickJsOPCode.OPCodeValue.OP_get_var_ref3:
                     result = new QuickJsInstructionGetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_get_field:
+                case QuickJsOPCode.OPCodeValue.OP_get_field2:
+                    result = new QuickJsInstructionGetProperty(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_put_arg:
+                case QuickJsOPCode.OPCodeValue.OP_put_arg0:
+                case QuickJsOPCode.OPCodeValue.OP_put_arg1:
+                case QuickJsOPCode.OPCodeValue.OP_put_arg2:
+                case QuickJsOPCode.OPCodeValue.OP_put_arg3:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc0:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc1:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc2:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc3:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc8:
+                case QuickJsOPCode.OPCodeValue.OP_put_var:
+                case QuickJsOPCode.OPCodeValue.OP_put_var_init:
+                case QuickJsOPCode.OPCodeValue.OP_put_var_ref:
+                case QuickJsOPCode.OPCodeValue.OP_put_var_ref0:
+                case QuickJsOPCode.OPCodeValue.OP_put_var_ref1:
+                case QuickJsOPCode.OPCodeValue.OP_put_var_ref2:
+                case QuickJsOPCode.OPCodeValue.OP_put_var_ref3:
+
+                case QuickJsOPCode.OPCodeValue.OP_set_arg:
+                case QuickJsOPCode.OPCodeValue.OP_set_arg0:
+                case QuickJsOPCode.OPCodeValue.OP_set_arg1:
+                case QuickJsOPCode.OPCodeValue.OP_set_arg2:
+                case QuickJsOPCode.OPCodeValue.OP_set_arg3:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc0:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc1:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc2:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc3:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc8:
+                case QuickJsOPCode.OPCodeValue.OP_set_var_ref:
+                case QuickJsOPCode.OPCodeValue.OP_set_var_ref0:
+                case QuickJsOPCode.OPCodeValue.OP_set_var_ref1:
+                case QuickJsOPCode.OPCodeValue.OP_set_var_ref2:
+                case QuickJsOPCode.OPCodeValue.OP_set_var_ref3:
+                case QuickJsOPCode.OPCodeValue.OP_set_name:
+                    result = new QuickJsInstructionSetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_dup:
+                case QuickJsOPCode.OPCodeValue.OP_dup1:
+                case QuickJsOPCode.OPCodeValue.OP_dup2:
+                case QuickJsOPCode.OPCodeValue.OP_dup3:
+                    result = new QuickJsInstructionDup(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_drop:
+                    result = new QuickJsInstructionPop(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_fclosure:
+                case QuickJsOPCode.OPCodeValue.OP_fclosure8:
+                    result = new QuickJsInstructionClosure(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
                 default:

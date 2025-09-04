@@ -24,9 +24,13 @@ namespace EvilDecompiler
                     QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func2.Bytecode), func2, atoms);
                     QuickJsInstruction[] ins = disasm.ReadAllInstructions();
 
-                    QuickJsDecompiler dec = new QuickJsDecompiler(func2, atoms);
+                    QuickJsDecompiler dec = new QuickJsDecompiler(func, atoms);
 
-                    Console.WriteLine(dec.Decompile());
+                    string output = dec.Decompile();
+
+                    Console.WriteLine(output);
+
+                    File.WriteAllText(@"../../../../Test.js", output);
 
                     Stack<string> stack = new Stack<string>();
 
@@ -60,20 +64,20 @@ namespace EvilDecompiler
                             stack.Push(qjsins.getOperand().GetString());
                         }
 
-                        
-                        Console.WriteLine(ins[i].ToString());
-                        Console.WriteLine(stack_count.ToString());
+
+                        //Console.WriteLine(ins[i].ToString());
+                        //Console.WriteLine(stack_count.ToString());
 
                         QuickJsInstructionPushValue? pv = qjsins as QuickJsInstructionPushValue;
                         if (pv != null)
                         {
-                            Console.WriteLine("Push Value: " + pv.Value);
+                            //Console.WriteLine("Push Value: " + pv.Value);
                         }
 
                         QuickJsInstructionGetVar? gv = qjsins as QuickJsInstructionGetVar;
                         if (gv != null)
                         {
-                            Console.WriteLine("Get Var: " + gv.Value);
+                            //Console.WriteLine("Get Var: " + gv.Value);
                         }
 
                     }
@@ -82,8 +86,8 @@ namespace EvilDecompiler
                     QuickJsAssembler asm = new QuickJsAssembler(new MemoryStream(data));
                     asm.WriteAllInstructions(ins);
 
-                    Console.WriteLine(BitConverter.ToString(func2.Bytecode).Replace("-", ""));
-                    Console.WriteLine(BitConverter.ToString(data).Replace("-", ""));
+                    //Console.WriteLine(BitConverter.ToString(func2.Bytecode).Replace("-", ""));
+                    //Console.WriteLine(BitConverter.ToString(data).Replace("-", ""));
                 }
             }
 
