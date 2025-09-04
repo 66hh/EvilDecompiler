@@ -17,7 +17,7 @@ namespace EvilDecompiler.ByteCode.Operand
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_atom_u16;
             AtomIndex = atomIndex;
-            AtomValue = atoms.Get((int)AtomIndex);
+            AtomValue = atoms.Get((int)AtomIndex & ~(1 << 31));
             U16 = u16;
         }
 

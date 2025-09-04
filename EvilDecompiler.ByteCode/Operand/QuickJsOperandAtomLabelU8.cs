@@ -19,7 +19,7 @@ namespace EvilDecompiler.ByteCode.Operand
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_atom_label_u8;
             AtomIndex = atomIndex;
-            AtomValue = atoms.Get((int)AtomIndex);
+            AtomValue = atoms.Get((int)AtomIndex & ~(1 << 31));
             Label = label;
             U8 = u8;
         }

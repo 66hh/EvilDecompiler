@@ -14,7 +14,7 @@ namespace EvilDecompiler.ByteCode.Operand
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_atom;
             AtomIndex = atomIndex;
-            AtomValue = atoms.Get((int)atomIndex);
+            AtomValue = atoms.Get((int)atomIndex & ~(1 << 31));
         }
 
         public override string GetString()
