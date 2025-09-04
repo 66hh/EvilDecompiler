@@ -7,7 +7,7 @@ namespace EvilDecompiler.ByteCode.Operand
     public class QuickJsOperandAtomLabelU16 : QuickJsOperand
     {
 
-        public AtomIdx AtomIndex;
+        public uint AtomIndex;
 
         public JsString? AtomValue;
 
@@ -18,8 +18,8 @@ namespace EvilDecompiler.ByteCode.Operand
         public QuickJsOperandAtomLabelU16(uint atomIndex, uint label, ushort u16, AtomSet atoms)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_atom_label_u16;
-            AtomIndex = new AtomIdx((int)atomIndex);
-            AtomValue = atoms.Get(AtomIndex.Value);
+            AtomIndex = atomIndex;
+            AtomValue = atoms.Get((int)atomIndex);
             Label = label;
             U16 = u16;
         }
@@ -40,7 +40,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public override byte[] GetBytes()
         {
-            return ByteUtils.Combine(BitConverter.GetBytes(AtomIndex.Flag), ByteUtils.Combine(BitConverter.GetBytes(Label), BitConverter.GetBytes(U16)));
+            return ByteUtils.Combine(BitConverter.GetBytes(AtomIndex), ByteUtils.Combine(BitConverter.GetBytes(Label), BitConverter.GetBytes(U16)));
         }
 
     }

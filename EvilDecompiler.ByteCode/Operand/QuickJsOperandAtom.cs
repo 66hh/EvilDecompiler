@@ -6,15 +6,15 @@ namespace EvilDecompiler.ByteCode.Operand
     public class QuickJsOperandAtom : QuickJsOperand
     {
 
-        public AtomIdx AtomIndex;
+        public uint AtomIndex;
 
         public JsString? AtomValue;
 
         public QuickJsOperandAtom(uint atomIndex, AtomSet atoms)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_atom;
-            AtomIndex = new AtomIdx((int)atomIndex);
-            AtomValue = atoms.Get(AtomIndex.Value);
+            AtomIndex = atomIndex;
+            AtomValue = atoms.Get((int)atomIndex);
         }
 
         public override string GetString()
@@ -31,7 +31,7 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(AtomIndex.Flag);
+            return BitConverter.GetBytes(AtomIndex);
         }
 
     }
