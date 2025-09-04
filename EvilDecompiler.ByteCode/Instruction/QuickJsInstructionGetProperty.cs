@@ -24,7 +24,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             }
 
             if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_length)
-                Value = "length";
+                Value = "\"length\"";
         }
     }
 }
