@@ -186,16 +186,12 @@ namespace EvilDecompiler.Decompiler
 
                     for (int j = 0; j < curIns.getOpCode().PopCount; j++)
                     {
-                        if (false)
-                        {
-                            builder.Append('\n');
-                            builder.Append(new string(' ', padding * 4));
-                            builder.Append("// stack " + j.ToString() + " total " + (stack.Count() - 1).ToString() + ": " + stack.Pop());
-                        }
-                        else
-                        {
-                            stack.Pop();
-                        }
+                        builder.Append('\n');
+                        builder.Append(new string(' ', padding * 4));
+
+                        string value = stack.Pop();
+
+                        builder.Append("// stack " + (j - stack.Count()).ToString() + " total " + stack.Count().ToString() + ": " + value);
                     }
 
                     for (int j = 0; j < curIns.getOpCode().PushCount; j++)

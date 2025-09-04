@@ -21,7 +21,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             }
             else
             {
-                Value = operandObjects.GetString();
+                Value = operandObjects.GetString().Replace("\r", "\\r").Replace("\n", "\\n");
             }
         }
     }
