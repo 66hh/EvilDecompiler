@@ -39,5 +39,10 @@
             IsTaggedInt = tagged;
             Value = value;
         }
+
+        public override string ToString()
+        {
+            return Flag.ToString();
+        }
     }
 }

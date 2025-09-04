@@ -235,9 +235,6 @@ namespace EvilDecompiler.JsObject.Types
             if (index == 0)
                 return null;
 
-            if (index > Atoms.Count)
-                return null;
-
             return Atoms[index - 1];
         }
 
