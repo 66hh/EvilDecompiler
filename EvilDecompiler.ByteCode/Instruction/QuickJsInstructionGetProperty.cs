@@ -22,6 +22,9 @@ namespace EvilDecompiler.ByteCode.Instruction
             {
                 PushOrigin = false;
             }
+
+            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_length)
+                Value = "length";
         }
     }
 }

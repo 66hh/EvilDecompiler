@@ -72,9 +72,11 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_get_var_ref2:
                 case QuickJsOPCode.OPCodeValue.OP_get_var_ref3:
                 case QuickJsOPCode.OPCodeValue.OP_get_var_ref_check:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc_check:
                     result = new QuickJsInstructionGetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_get_length:
                 case QuickJsOPCode.OPCodeValue.OP_get_field:
                 case QuickJsOPCode.OPCodeValue.OP_get_field2:
                     result = new QuickJsInstructionGetProperty(pc, opcode, operand, jsFunctionBytecode, Atoms);
@@ -98,6 +100,8 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_put_var_ref1:
                 case QuickJsOPCode.OPCodeValue.OP_put_var_ref2:
                 case QuickJsOPCode.OPCodeValue.OP_put_var_ref3:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc_check:
+                case QuickJsOPCode.OPCodeValue.OP_put_loc_check_init:
 
                 case QuickJsOPCode.OPCodeValue.OP_set_arg:
                 case QuickJsOPCode.OPCodeValue.OP_set_arg0:
@@ -116,6 +120,7 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_set_var_ref2:
                 case QuickJsOPCode.OPCodeValue.OP_set_var_ref3:
                 case QuickJsOPCode.OPCodeValue.OP_set_name:
+                case QuickJsOPCode.OPCodeValue.OP_set_loc_uninitialized:
                     result = new QuickJsInstructionSetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 

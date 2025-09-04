@@ -14,6 +14,8 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public bool GlobalVar;
 
+        public bool Uninitialized;
+
         public QuickJsInstructionSetVar(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
             Value = operandObjects.GetString();
@@ -43,6 +45,11 @@ namespace EvilDecompiler.ByteCode.Instruction
             {
                 PopNewValue = false;
             }
+
+            if (code == OPCodeValue.OP_set_loc_uninitialized)
+                Uninitialized = true;
+            else
+                Uninitialized = false;
 
             if (code == OPCodeValue.OP_set_name)
                 GlobalVar = true;

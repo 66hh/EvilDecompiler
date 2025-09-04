@@ -178,20 +178,24 @@ namespace EvilDecompiler.Decompiler
                 }
                 else if (curIns is QuickJsInstructionSetVar setVar)
                 {
-                    string expression = stack.Pop();
-                    builder.Append('\n');
-                    builder.Append(new string(' ', padding * 4));
 
-                    if (setVar.GlobalVar)
-                        builder.Append("Global[" + setVar.Value + "] = " + expression + ";");
-                    else
-                        builder.Append(setVar.Value + " = " + expression + ";");
+                    if (!setVar.Uninitialized)
+                    {
+                        string expression = stack.Pop();
+                        builder.Append('\n');
+                        builder.Append(new string(' ', padding * 4));
 
-                    if (setVar.PopNewValue)
                         if (setVar.GlobalVar)
-                            stack.Push("Global[" + setVar.Value + "]");
+                            builder.Append("Global[" + setVar.Value + "] = " + expression + ";");
                         else
-                            stack.Push(setVar.Value);
+                            builder.Append(setVar.Value + " = " + expression + ";");
+
+                        if (setVar.PopNewValue)
+                            if (setVar.GlobalVar)
+                                stack.Push("Global[" + setVar.Value + "]");
+                            else
+                                stack.Push(setVar.Value);
+                    }
                 }
                 else if (curIns is QuickJsInstructionDup dup)
                 {
