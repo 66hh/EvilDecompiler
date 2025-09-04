@@ -15,7 +15,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             switch (opCode.OPCode)
             {
                 case QuickJsOPCode.OPCodeValue.OP_mul:
-                    Symbol = "x";
+                    Symbol = "*";
                     break;
                 case QuickJsOPCode.OPCodeValue.OP_div:
                     Symbol = "/";
