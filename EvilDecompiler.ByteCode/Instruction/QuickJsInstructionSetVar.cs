@@ -51,7 +51,7 @@ namespace EvilDecompiler.ByteCode.Instruction
             else
                 Uninitialized = false;
 
-            if (code == OPCodeValue.OP_set_name)
+            if (code == OPCodeValue.OP_set_name || code == OPCodeValue.OP_define_field)
                 GlobalVar = true;
             else
                 GlobalVar = false;

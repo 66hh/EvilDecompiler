@@ -11,10 +11,12 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public bool PushOrigin;
 
+        public bool StackValue;
+
         public QuickJsInstructionGetProperty(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
             Value = operandObjects.GetString();
-            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_field2)
+            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_field2 || opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_array_el2)
             {
                 PushOrigin = true;
             }
@@ -25,6 +27,11 @@ namespace EvilDecompiler.ByteCode.Instruction
 
             if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_length)
                 Value = "\"length\"";
+
+            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_array_el2 || opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_array_el)
+                StackValue = true;
+            else
+                StackValue = false;
         }
     }
 }

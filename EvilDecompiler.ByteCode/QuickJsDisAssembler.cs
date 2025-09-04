@@ -3,6 +3,7 @@ using EvilDecompiler.ByteCode.Type;
 using EvilDecompiler.JsObject.Types.Objects;
 using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Utils;
+using static EvilDecompiler.ByteCode.Type.QuickJsOPCode;
 
 namespace EvilDecompiler.ByteCode
 {
@@ -76,6 +77,8 @@ namespace EvilDecompiler.ByteCode
                     result = new QuickJsInstructionGetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_get_array_el:
+                case QuickJsOPCode.OPCodeValue.OP_get_array_el2:
                 case QuickJsOPCode.OPCodeValue.OP_get_length:
                 case QuickJsOPCode.OPCodeValue.OP_get_field:
                 case QuickJsOPCode.OPCodeValue.OP_get_field2:
@@ -121,6 +124,7 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_set_var_ref3:
                 case QuickJsOPCode.OPCodeValue.OP_set_name:
                 case QuickJsOPCode.OPCodeValue.OP_set_loc_uninitialized:
+                case QuickJsOPCode.OPCodeValue.OP_define_field:
                     result = new QuickJsInstructionSetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
@@ -177,6 +181,18 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_and:
                 case QuickJsOPCode.OPCodeValue.OP_or:
                     result = new QuickJsInstructionMath(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_call_method:
+                case QuickJsOPCode.OPCodeValue.OP_tail_call_method:
+                    result = new QuickJsInstructionCall(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+
+                case QuickJsOPCode.OPCodeValue.OP_object:
+                case QuickJsOPCode.OPCodeValue.OP_special_object:
+                case QuickJsOPCode.OPCodeValue.OP_array_from:
+                    result = new QuickJsInstructionObject(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
                 default:

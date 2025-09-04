@@ -101,6 +101,11 @@ namespace EvilDecompiler.Decompiler
                 {
                     // 判断是否要在栈中保留原始变量
 
+                    string num = "";
+
+                    if (getProperty.StackValue)
+                        num = stack.Pop();
+
                     string origin;
 
                     if (getProperty.PushOrigin)
@@ -111,7 +116,11 @@ namespace EvilDecompiler.Decompiler
                     {
                         origin = stack.Pop();
                     }
-                    stack.Push(origin + "[" + getProperty.Value + "]");
+
+                    if (getProperty.StackValue)
+                        stack.Push(origin + "[" + num + "]");
+                    else
+                        stack.Push(origin + "[" + getProperty.Value + "]");
                 }
                 else if (curIns is QuickJsInstructionPushValue pushValue)
                 {
@@ -176,6 +185,36 @@ namespace EvilDecompiler.Decompiler
                     }
 
                 }
+                else if (curIns is QuickJsInstructionCall call)
+                {
+
+                    string p = "";
+
+                    for (int j = 0; j < call.ExtPopCount; j++)
+                    {
+                        if (j == 0)
+                            p = stack.Pop();
+                        else
+                            p = ", " + stack.Pop();
+                    }
+
+                    if (call.HasResult)
+                    {
+
+                        string str = stack.Pop() + "(" + p + ")";
+                        stack.Pop();
+
+                        stack.Push(str);
+                    }
+                    else
+                    {
+                        builder.Append('\n');
+                        builder.Append(new string(' ', padding * 4));
+                        builder.Append(stack.Pop() + "(" + p + ");");
+                        stack.Pop();
+                    }
+
+                }
                 else if (curIns is QuickJsInstructionSetVar setVar)
                 {
 
@@ -220,6 +259,10 @@ namespace EvilDecompiler.Decompiler
                 {
                     stack.Pop();
                 }
+                else if (curIns is QuickJsInstructionObject obj)
+                {
+                    stack.Push("{}");
+                }
                 else
                 {
                     builder.Append('\n');
@@ -231,7 +274,7 @@ namespace EvilDecompiler.Decompiler
 
                         string value = stack.Pop();
 
-                        builder.Append("// stack " + (stack.Count() - j).ToString() + " total " + stack.Count().ToString() + ": " + value);
+                        builder.Append("// stack " + j.ToString() + " total " + stack.Count().ToString() + ": " + value);
                     }
 
                     for (int j = 0; j < curIns.getOpCode().PushCount; j++)
