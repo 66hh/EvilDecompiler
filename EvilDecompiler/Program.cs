@@ -22,9 +22,42 @@ namespace EvilDecompiler
                     JsFunctionBytecode func2 = (JsFunctionBytecode)((JsFunctionBytecode)func.CPool[0]).CPool[0];
                     QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func2.Bytecode), func2, atoms);
                     QuickJsInstruction[] ins = disasm.ReadAllInstructions();
+
+                    Stack<string> stack = new Stack<string>();
+
+                    int stack_count = 0;
+
                     for (int i = 0; i < ins.Length; i++)
                     {
+                    
+                        QuickJsInstruction qjsins = ins[i];
+
+                        int pop = qjsins.getOpCode().PopCount;
+                        int push = qjsins.getOpCode().PushCount;
+
+                        stack_count -= pop;
+                        stack_count += push;
+
+                        for (int j = 0; j < pop; j++)
+                        {
+                            Console.WriteLine(stack.Pop());
+                        }
+
+                        for (int j = 0; j < push; j++)
+                        {
+                            // todo
+                            if (qjsins.getOpCode().Name == "add")
+                            {
+                                stack.Push("+");
+                                break;
+                            }
+
+                            stack.Push(qjsins.getOperand().GetString());
+                        }
+
                         Console.WriteLine(ins[i].ToString());
+                        Console.WriteLine(stack_count.ToString());
+
                     }
 
                     byte[] data = new byte[func2.Bytecode.Length];
