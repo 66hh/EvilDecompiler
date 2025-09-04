@@ -209,7 +209,7 @@ namespace EvilDecompiler.Decompiler
 
                         string value = stack.Pop();
 
-                        builder.Append("// stack " + (j - stack.Count()).ToString() + " total " + stack.Count().ToString() + ": " + value);
+                        builder.Append("// stack " + (stack.Count() - j).ToString() + " total " + stack.Count().ToString() + ": " + value);
                     }
 
                     for (int j = 0; j < curIns.getOpCode().PushCount; j++)
