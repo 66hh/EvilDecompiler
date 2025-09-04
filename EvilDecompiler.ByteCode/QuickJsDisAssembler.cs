@@ -134,6 +134,12 @@ namespace EvilDecompiler.ByteCode
                     result = new QuickJsInstructionClosure(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_typeof:
+                case QuickJsOPCode.OPCodeValue.OP_typeof_is_function:
+                case QuickJsOPCode.OPCodeValue.OP_typeof_is_undefined:
+                    result = new QuickJsInstructionTypeOf(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
                 default:
                     result = new QuickJsInstruction(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;

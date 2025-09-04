@@ -117,6 +117,17 @@ namespace EvilDecompiler.Decompiler
                 {
                     stack.Push(pushValue.Value);
                 }
+                else if (curIns is QuickJsInstructionTypeOf typeOf)
+                {
+                    if (typeOf.IsType == "")
+                    {
+                        stack.Push("typeof " + stack.Pop());
+                    }
+                    else
+                    {
+                        stack.Push("typeof " + stack.Pop() + " === " + typeOf.IsType);
+                    }
+                }
                 else if (curIns is QuickJsInstructionClosure closure)
                 {
                     if (closure.Function != null)
@@ -138,7 +149,7 @@ namespace EvilDecompiler.Decompiler
                             builder.Append(closureDecompiler.Decompile(padding));
                             stack.Push(funcName);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             builder.Append("\n /*\n " + e.ToString() + "\n*/");
                             stack.Push(funcName);
@@ -149,7 +160,7 @@ namespace EvilDecompiler.Decompiler
                     {
                         stack.Push("null");
                     }
-                        
+
                 }
                 else if (curIns is QuickJsInstructionSetVar setVar)
                 {
