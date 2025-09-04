@@ -128,6 +128,13 @@ namespace EvilDecompiler.Decompiler
                         stack.Push("typeof " + stack.Pop() + " === " + typeOf.IsType);
                     }
                 }
+                else if (curIns is QuickJsInstructionCompare compare)
+                {
+                    string a = stack.Pop();
+                    string b = stack.Pop();
+
+                    stack.Push(a + compare.Symbol + b);
+                }
                 else if (curIns is QuickJsInstructionClosure closure)
                 {
                     if (closure.Function != null)

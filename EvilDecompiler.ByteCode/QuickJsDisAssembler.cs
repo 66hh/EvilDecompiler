@@ -140,6 +140,17 @@ namespace EvilDecompiler.ByteCode
                     result = new QuickJsInstructionTypeOf(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_lt:
+                case QuickJsOPCode.OPCodeValue.OP_lte:
+                case QuickJsOPCode.OPCodeValue.OP_gt:
+                case QuickJsOPCode.OPCodeValue.OP_gte:
+                case QuickJsOPCode.OPCodeValue.OP_eq:
+                case QuickJsOPCode.OPCodeValue.OP_neq:
+                case QuickJsOPCode.OPCodeValue.OP_strict_neq:
+                case QuickJsOPCode.OPCodeValue.OP_strict_eq:
+                    result = new QuickJsInstructionCompare(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
                 default:
                     result = new QuickJsInstruction(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
