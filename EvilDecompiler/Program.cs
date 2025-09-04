@@ -11,7 +11,7 @@ namespace EvilDecompiler
     {
         static void Main(string[] args)
         {
-            JsObjectReader reader = new JsObjectReader(new MemoryStream(File.ReadAllBytes("../../../../Test.jsc")));
+            JsObjectReader reader = new JsObjectReader(new MemoryStream(File.ReadAllBytes("../../../../verify.jsc")));
             JsModule? module = reader.JsObject as JsModule;
             AtomSet? atoms = reader.Atoms;
 
@@ -30,7 +30,7 @@ namespace EvilDecompiler
 
                     Console.WriteLine(output);
 
-                    File.WriteAllText(@"../../../../Test.js", output);
+                    File.WriteAllText(@"../../../../verify.jsc", output);
 
                     Stack<string> stack = new Stack<string>();
 
