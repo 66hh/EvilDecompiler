@@ -1,5 +1,6 @@
 ﻿using EvilDecompiler.ByteCode;
 using EvilDecompiler.ByteCode.Instruction;
+using EvilDecompiler.Decompiler;
 using EvilDecompiler.JsObject;
 using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
@@ -22,6 +23,10 @@ namespace EvilDecompiler
                     JsFunctionBytecode func2 = (JsFunctionBytecode)((JsFunctionBytecode)func.CPool[0]).CPool[0];
                     QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func2.Bytecode), func2, atoms);
                     QuickJsInstruction[] ins = disasm.ReadAllInstructions();
+
+                    QuickJsDecompiler dec = new QuickJsDecompiler(func2, atoms);
+
+                    Console.WriteLine(dec.Decompile());
 
                     Stack<string> stack = new Stack<string>();
 
