@@ -3,17 +3,17 @@
     public class QuickJsOperandNoneVarRef : QuickJsOperand
     {
 
-        public readonly int Value;
+        public readonly int RefIndex;
 
-        public QuickJsOperandNoneVarRef(int num)
+        public QuickJsOperandNoneVarRef(int refIndex)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_none_var_ref;
-            Value = num;
+            RefIndex = refIndex;
         }
 
         public override string GetString()
         {
-            return Value.ToString();
+            return RefIndex.ToString();
         }
 
     }

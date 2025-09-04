@@ -3,23 +3,23 @@
     public class QuickJsOperandLabel16 : QuickJsOperand
     {
 
-        public short Value;
+        public short Label;
 
-        public QuickJsOperandLabel16(short num)
+        public QuickJsOperandLabel16(short label)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_label16;
-            Value = num;
+            Label = label;
         }
 
         public override string GetString()
         {
-            string addr = Value < 0 ? Value.ToString() : "+" + Value.ToString();
+            string addr = Label < 0 ? Label.ToString() : "+" + Label.ToString();
             return "[pc: $" + addr + "]";
         }
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(Value);
+            return BitConverter.GetBytes(Label);
         }
 
     }

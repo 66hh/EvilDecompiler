@@ -3,17 +3,17 @@
     public class QuickJsOperandNoneArg : QuickJsOperand
     {
 
-        public readonly int Value;
+        public readonly int ArgIndex;
 
-        public QuickJsOperandNoneArg(int num)
+        public QuickJsOperandNoneArg(int argIndex)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_none_arg;
-            Value = num;
+            ArgIndex = argIndex;
         }
 
         public override string GetString()
         {
-            return Value.ToString();
+            return "arg" + ArgIndex.ToString();
         }
 
     }

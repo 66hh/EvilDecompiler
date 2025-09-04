@@ -3,22 +3,22 @@
     public class QuickJsOperandArg : QuickJsOperand
     {
 
-        public ushort Value;
+        public ushort ArgIndex;
 
-        public QuickJsOperandArg(ushort num)
+        public QuickJsOperandArg(ushort argIndex)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_arg;
-            Value = num;
+            ArgIndex = argIndex;
         }
 
         public override string GetString()
         {
-            return "arg" + Value.ToString();
+            return "arg" + ArgIndex.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(Value);
+            return BitConverter.GetBytes(ArgIndex);
         }
 
     }

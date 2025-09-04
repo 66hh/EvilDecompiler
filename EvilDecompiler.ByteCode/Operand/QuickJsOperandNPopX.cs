@@ -3,17 +3,17 @@
     public class QuickJsOperandNPopX : QuickJsOperand
     {
 
-        public readonly int Value;
+        public readonly int NPop;
 
-        public QuickJsOperandNPopX(int num)
+        public QuickJsOperandNPopX(int nPop)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_npopx;
-            Value = num;
+            NPop = nPop;
         }
 
         public override string GetString()
         {
-            return Value.ToString();
+            return NPop.ToString();
         }
 
     }

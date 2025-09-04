@@ -7,23 +7,23 @@ namespace EvilDecompiler.ByteCode.Operand
 
         public ushort NPop;
 
-        public ushort Value;
+        public ushort U16;
 
-        public QuickJsOperandNPopU16(ushort nPop, ushort num)
+        public QuickJsOperandNPopU16(ushort nPop, ushort u16)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_npop_u16;
             NPop = nPop;
-            Value = num;
+            U16 = u16;
         }
 
         public override string GetString()
         {
-            return NPop.ToString() + "," + Value.ToString();
+            return NPop.ToString() + "," + U16.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            return ByteUtils.Combine(BitConverter.GetBytes(NPop), BitConverter.GetBytes(Value));
+            return ByteUtils.Combine(BitConverter.GetBytes(NPop), BitConverter.GetBytes(U16));
         }
 
     }

@@ -3,25 +3,25 @@
     public class QuickJsOperandConst8 : QuickJsOperand
     {
 
-        public byte Value;
+        public byte ConstIndex;
 
-        public List<JsObject.Types.Objects.JsObject> CPool;
+        public JsObject.Types.Objects.JsObject ConstValue;
 
-        public QuickJsOperandConst8(byte num, List<JsObject.Types.Objects.JsObject> cPool)
+        public QuickJsOperandConst8(byte constIndex, List<JsObject.Types.Objects.JsObject> cPool)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_const8;
-            Value = num;
-            CPool = cPool;
+            ConstIndex = constIndex;
+            ConstValue = cPool[ConstIndex];
         }
 
         public override string GetString()
         {
-            return Value.ToString() + ": " + CPool[Value].ToString();
+            return ConstIndex.ToString() + ": " + ConstValue.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            return [Value];
+            return [ConstIndex];
         }
 
     }

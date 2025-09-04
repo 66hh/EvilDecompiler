@@ -7,43 +7,40 @@ namespace EvilDecompiler.ByteCode.Operand
     public class QuickJsOperandAtomLabelU16 : QuickJsOperand
     {
 
-        public uint Value;
+        public uint AtomIndex;
+
+        public JsString? AtomValue;
 
         public uint Label;
 
         public ushort U16;
 
-        public AtomSet Atoms;
-
-        public QuickJsOperandAtomLabelU16(uint num, uint label, ushort u16, AtomSet atoms)
+        public QuickJsOperandAtomLabelU16(uint atomIndex, uint label, ushort u16, AtomSet atoms)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_atom_label_u16;
-            Value = num;
+            AtomIndex = atomIndex;
+            AtomValue = atoms.Get((int)atomIndex);
             Label = label;
             U16 = u16;
-            Atoms = atoms;
         }
 
         public override string GetString()
         {
-
-            JsString? str = Atoms.Get((int)Value);
-
             string addr = Label < 0 ? Label.ToString() : "+" + Label.ToString();
 
-            if (str == null)
+            if (AtomValue == null)
             {
-                return "[atom: " + Value.ToString() + "],  [pc: $" + addr + ", ]" + U16.ToString();
+                return "[atom: " + AtomIndex.ToString() + "],  [pc: $" + addr + ", ]" + U16.ToString();
             }
             else
             {
-                return "\"" + str.Value + "\",  [pc: $" + addr + "], " + U16.ToString();
+                return "\"" + AtomValue.Value + "\",  [pc: $" + addr + "], " + U16.ToString();
             }
         }
 
         public override byte[] GetBytes()
         {
-            return ByteUtils.Combine(BitConverter.GetBytes(Value), ByteUtils.Combine(BitConverter.GetBytes(Label), BitConverter.GetBytes(U16)));
+            return ByteUtils.Combine(BitConverter.GetBytes(AtomIndex), ByteUtils.Combine(BitConverter.GetBytes(Label), BitConverter.GetBytes(U16)));
         }
 
     }

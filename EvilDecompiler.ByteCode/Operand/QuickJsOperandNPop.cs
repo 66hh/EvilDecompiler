@@ -3,22 +3,22 @@
     public class QuickJsOperandNPop : QuickJsOperand
     {
 
-        public ushort Value;
+        public ushort NPop;
 
-        public QuickJsOperandNPop(ushort num)
+        public QuickJsOperandNPop(ushort nPop)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_npop;
-            Value = num;
+            NPop = nPop;
         }
 
         public override string GetString()
         {
-            return Value.ToString();
+            return NPop.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(Value);
+            return BitConverter.GetBytes(NPop);
         }
 
     }

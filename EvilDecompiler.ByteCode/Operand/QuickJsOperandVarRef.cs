@@ -3,22 +3,22 @@
     public class QuickJsOperandVarRef : QuickJsOperand
     {
 
-        public ushort Value;
+        public ushort RefIndex;
 
-        public QuickJsOperandVarRef(ushort num)
+        public QuickJsOperandVarRef(ushort refIndex)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_var_ref;
-            Value = num;
+            RefIndex = refIndex;
         }
 
         public override string GetString()
         {
-            return "var_ref" + Value.ToString();
+            return "var_ref" + RefIndex.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(Value);
+            return BitConverter.GetBytes(RefIndex);
         }
 
     }

@@ -5,23 +5,23 @@ namespace EvilDecompiler.ByteCode.Operand
     public class QuickJsOperandLabel : QuickJsOperand
     {
 
-        public uint Value;
+        public uint Label;
 
-        public QuickJsOperandLabel(uint num)
+        public QuickJsOperandLabel(uint label)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_label;
-            Value = num;
+            Label = label;
         }
 
         public override string GetString()
         {
-            string addr = Value < 0 ? Value.ToString() : "+" + Value.ToString();
+            string addr = Label < 0 ? Label.ToString() : "+" + Label.ToString();
             return "[pc: $" + addr + "]";
         }
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(Value);
+            return BitConverter.GetBytes(Label);
         }
 
     }

@@ -3,17 +3,17 @@
     public class QuickJsOperandNoneLoc : QuickJsOperand
     {
 
-        public readonly int Value;
+        public readonly int LocIndex;
 
-        public QuickJsOperandNoneLoc(int num)
+        public QuickJsOperandNoneLoc(int locIndex)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_none_loc;
-            Value = num;
+            LocIndex = locIndex;
         }
 
         public override string GetString()
         {
-            return Value.ToString();
+            return "loc" + LocIndex.ToString();
         }
 
     }

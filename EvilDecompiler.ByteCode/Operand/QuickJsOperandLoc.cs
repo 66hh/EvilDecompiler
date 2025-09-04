@@ -3,22 +3,22 @@
     public class QuickJsOperandLoc : QuickJsOperand
     {
 
-        public ushort Value;
+        public ushort LocIndex;
 
-        public QuickJsOperandLoc(ushort num)
+        public QuickJsOperandLoc(ushort locIndex)
         {
             Format = Type.QuickJsOPCodeFormat.OP_FMT_loc;
-            Value = num;
+            LocIndex = locIndex;
         }
 
         public override string GetString()
         {
-            return "loc" + Value.ToString();
+            return "loc" + LocIndex.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            return BitConverter.GetBytes(Value);
+            return BitConverter.GetBytes(LocIndex);
         }
 
     }
