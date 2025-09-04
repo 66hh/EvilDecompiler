@@ -53,7 +53,7 @@ namespace EvilDecompiler.Decompiler
 
             if (atomString != null)
             {
-                funcName = atomString.Value;
+                funcName = atomString.Value.Replace("<", "").Replace(">", "");
             }
 
             builder.Append(funcName);
@@ -121,17 +121,27 @@ namespace EvilDecompiler.Decompiler
                 {
                     if (closure.Function != null)
                     {
+
+                        string funcName = "sub_" + function.GetHashCode().ToString();
+
+                        JsString? atomString = atomSet.Get(function.FunctionName.Value);
+
+                        if (atomString != null)
+                        {
+                            funcName = atomString.Value.Replace("<", "").Replace(">", "");
+                        }
+
                         try
                         {
                             QuickJsDecompiler closureDecompiler = new QuickJsDecompiler(closure.Function, atomSet);
                             builder.Append('\n');
                             builder.Append(closureDecompiler.Decompile(padding));
-                            stack.Push("sub_" + closure.Function.GetHashCode().ToString());
+                            stack.Push(funcName);
                         }
                         catch(Exception e)
                         {
-                            builder.Append("\n // " + e.ToString());
-                            stack.Push("sub_" + closure.Function.GetHashCode().ToString());
+                            builder.Append("\n /*\n " + e.ToString() + "\n*/");
+                            stack.Push(funcName);
                         }
 
                     }
@@ -176,9 +186,16 @@ namespace EvilDecompiler.Decompiler
 
                     for (int j = 0; j < curIns.getOpCode().PopCount; j++)
                     {
-                        builder.Append('\n');
-                        builder.Append(new string(' ', padding * 4));
-                        builder.Append("// stack " + j.ToString() + " total " + (stack.Count() - 1).ToString() + ": " + stack.Pop());
+                        if (false)
+                        {
+                            builder.Append('\n');
+                            builder.Append(new string(' ', padding * 4));
+                            builder.Append("// stack " + j.ToString() + " total " + (stack.Count() - 1).ToString() + ": " + stack.Pop());
+                        }
+                        else
+                        {
+                            stack.Pop();
+                        }
                     }
 
                     for (int j = 0; j < curIns.getOpCode().PushCount; j++)
@@ -196,6 +213,8 @@ namespace EvilDecompiler.Decompiler
                 Console.WriteLine("stack: " + stack.Count.ToString());
 
             }
+
+            padding--;
 
             builder.Append('\n');
             builder.Append(new string(' ', padding * 4));
