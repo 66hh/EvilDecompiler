@@ -26,6 +26,7 @@ namespace EvilDecompiler.ByteCode.Instruction
                 code == OPCodeValue.OP_set_arg2 ||
                 code == OPCodeValue.OP_set_arg3 ||
                 code == OPCodeValue.OP_set_loc ||
+                code == OPCodeValue.OP_set_loc0 ||
                 code == OPCodeValue.OP_set_loc1 ||
                 code == OPCodeValue.OP_set_loc2 ||
                 code == OPCodeValue.OP_set_loc3 ||
