@@ -25,7 +25,55 @@ namespace EvilDecompiler.ByteCode
             long pc = reader.BaseStream.Position;
             QuickJsOPCode opcode = new QuickJsOPCode(reader.ReadByte());
             byte[] operand = reader.ReadBytes(opcode.Size - 1);
-            return new QuickJsInstruction(pc, opcode, operand, jsFunctionBytecode, Atoms);
+
+            QuickJsInstruction result;
+
+            switch (opcode.OPCode)
+            {
+
+                case QuickJsOPCode.OPCodeValue.OP_push_minus1:
+                case QuickJsOPCode.OPCodeValue.OP_push_0:
+                case QuickJsOPCode.OPCodeValue.OP_push_1:
+                case QuickJsOPCode.OPCodeValue.OP_push_2:
+                case QuickJsOPCode.OPCodeValue.OP_push_3:
+                case QuickJsOPCode.OPCodeValue.OP_push_4:
+                case QuickJsOPCode.OPCodeValue.OP_push_5:
+                case QuickJsOPCode.OPCodeValue.OP_push_6:
+                case QuickJsOPCode.OPCodeValue.OP_push_7:
+                case QuickJsOPCode.OPCodeValue.OP_push_i8:
+                case QuickJsOPCode.OPCodeValue.OP_push_i16:
+                case QuickJsOPCode.OPCodeValue.OP_push_i32:
+                case QuickJsOPCode.OPCodeValue.OP_push_this:
+                case QuickJsOPCode.OPCodeValue.OP_push_true:
+                case QuickJsOPCode.OPCodeValue.OP_push_false:
+                case QuickJsOPCode.OPCodeValue.OP_push_const:
+                case QuickJsOPCode.OPCodeValue.OP_push_const8:
+                case QuickJsOPCode.OPCodeValue.OP_push_atom_value:
+                case QuickJsOPCode.OPCodeValue.OP_push_empty_string:
+                    result = new QuickJsInstructionPushValue(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                case QuickJsOPCode.OPCodeValue.OP_get_arg:
+                case QuickJsOPCode.OPCodeValue.OP_get_arg0:
+                case QuickJsOPCode.OPCodeValue.OP_get_arg1:
+                case QuickJsOPCode.OPCodeValue.OP_get_arg2:
+                case QuickJsOPCode.OPCodeValue.OP_get_arg3:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc1:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc2:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc3:
+                case QuickJsOPCode.OPCodeValue.OP_get_loc8:
+                case QuickJsOPCode.OPCodeValue.OP_get_var:
+                case QuickJsOPCode.OPCodeValue.OP_get_var_undef:
+                    result = new QuickJsInstructionGetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+                default:
+                    result = new QuickJsInstruction(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+            }
+
+            return result;
         }
 
         public QuickJsInstruction[] ReadAllInstructions()

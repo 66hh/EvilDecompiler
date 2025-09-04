@@ -40,7 +40,7 @@ namespace EvilDecompiler
 
                         for (int j = 0; j < pop; j++)
                         {
-                            Console.WriteLine(stack.Pop());
+                            //Console.WriteLine(stack.Pop());
                         }
 
                         for (int j = 0; j < push; j++)
@@ -55,8 +55,21 @@ namespace EvilDecompiler
                             stack.Push(qjsins.getOperand().GetString());
                         }
 
+                        
                         Console.WriteLine(ins[i].ToString());
                         Console.WriteLine(stack_count.ToString());
+
+                        QuickJsInstructionPushValue? pv = qjsins as QuickJsInstructionPushValue;
+                        if (pv != null)
+                        {
+                            Console.WriteLine("Push Value: " + pv.Value);
+                        }
+
+                        QuickJsInstructionGetVar? gv = qjsins as QuickJsInstructionGetVar;
+                        if (gv != null)
+                        {
+                            Console.WriteLine("Get Var: " + gv.Value);
+                        }
 
                     }
 

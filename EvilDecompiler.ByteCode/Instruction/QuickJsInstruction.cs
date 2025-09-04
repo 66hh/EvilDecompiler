@@ -11,9 +11,9 @@ namespace EvilDecompiler.ByteCode.Instruction
     public class QuickJsInstruction : IQuickJsInstruction
     {
 
-        private long pc;
-        private QuickJsOPCode opCode;
-        private QuickJsOperand operandObjects;
+        protected long pc;
+        protected QuickJsOPCode opCode;
+        protected QuickJsOperand operandObjects;
 
         public QuickJsInstruction(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
         {
@@ -174,7 +174,11 @@ namespace EvilDecompiler.ByteCode.Instruction
             }
 
             if (reader.BaseStream.Position != reader.BaseStream.Length)
-                throw new Exception("OperandStream.Position != OperandStream.Length");
+                throw new Exception("reader.BaseStream.Position != reader.BaseStream.Length");
+
+            if (format != result.Format)
+                throw new Exception("format != result.Format");
+
 
             return result;
         }
