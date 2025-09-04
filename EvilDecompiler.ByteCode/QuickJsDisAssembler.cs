@@ -71,6 +71,7 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_get_var_ref1:
                 case QuickJsOPCode.OPCodeValue.OP_get_var_ref2:
                 case QuickJsOPCode.OPCodeValue.OP_get_var_ref3:
+                case QuickJsOPCode.OPCodeValue.OP_get_var_ref_check:
                     result = new QuickJsInstructionGetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
@@ -155,6 +156,22 @@ namespace EvilDecompiler.ByteCode
                 case QuickJsOPCode.OPCodeValue.OP_return_async:
                 case QuickJsOPCode.OPCodeValue.OP_return_undef:
                     result = new QuickJsInstructionReturn(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
+
+                case QuickJsOPCode.OPCodeValue.OP_mul:
+                case QuickJsOPCode.OPCodeValue.OP_div:
+                case QuickJsOPCode.OPCodeValue.OP_mod:
+                case QuickJsOPCode.OPCodeValue.OP_add:
+                case QuickJsOPCode.OPCodeValue.OP_sub:
+                case QuickJsOPCode.OPCodeValue.OP_pow:
+                case QuickJsOPCode.OPCodeValue.OP_shl:
+                case QuickJsOPCode.OPCodeValue.OP_sar:
+                case QuickJsOPCode.OPCodeValue.OP_shr:
+                case QuickJsOPCode.OPCodeValue.OP_xor:
+                case QuickJsOPCode.OPCodeValue.OP_and:
+                case QuickJsOPCode.OPCodeValue.OP_or:
+                    result = new QuickJsInstructionMath(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
                 default:
