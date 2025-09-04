@@ -30,7 +30,7 @@ namespace EvilDecompiler
 
                     Console.WriteLine(output);
 
-                    File.WriteAllText(@"../../../../verify.jsc", output);
+                    File.WriteAllText(@"../../../../verify.js", output);
 
                     Stack<string> stack = new Stack<string>();
 
