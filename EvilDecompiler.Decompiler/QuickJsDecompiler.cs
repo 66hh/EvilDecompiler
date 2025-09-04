@@ -194,6 +194,17 @@ namespace EvilDecompiler.Decompiler
                         stack.Push(value);
                     }
                 }
+                else if (curIns is QuickJsInstructionReturn ret)
+                {
+
+                    builder.Append('\n');
+                    builder.Append(new string(' ', padding * 4));
+
+                    if (ret.HasValue)
+                        builder.Append("return " + stack.Pop() + ";");
+                    else
+                        builder.Append("return;");
+                }
                 else if (curIns is QuickJsInstructionPop pop)
                 {
                     stack.Pop();

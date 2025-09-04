@@ -151,6 +151,12 @@ namespace EvilDecompiler.ByteCode
                     result = new QuickJsInstructionCompare(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_return:
+                case QuickJsOPCode.OPCodeValue.OP_return_async:
+                case QuickJsOPCode.OPCodeValue.OP_return_undef:
+                    result = new QuickJsInstructionReturn(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+
                 default:
                     result = new QuickJsInstruction(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
