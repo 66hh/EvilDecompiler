@@ -12,6 +12,8 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public bool HasResult;
 
+        public bool Constructor;
+
         public QuickJsInstructionCall(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
 
@@ -19,11 +21,16 @@ namespace EvilDecompiler.ByteCode.Instruction
             if (pop != null)
                 ExtPopCount = pop.NPop;
 
-            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_call_method)
-                HasResult = true;
-            else
+            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_tail_call_method)
                 HasResult = false;
+            else
+                HasResult = true;
 
+
+            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_call_constructor)
+                Constructor = true;
+            else
+                Constructor = false;
         }
     }
 }

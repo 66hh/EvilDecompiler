@@ -183,6 +183,7 @@ namespace EvilDecompiler.ByteCode
                     result = new QuickJsInstructionMath(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_call_constructor:
                 case QuickJsOPCode.OPCodeValue.OP_call_method:
                 case QuickJsOPCode.OPCodeValue.OP_tail_call_method:
                     result = new QuickJsInstructionCall(pc, opcode, operand, jsFunctionBytecode, Atoms);
@@ -195,6 +196,11 @@ namespace EvilDecompiler.ByteCode
                     result = new QuickJsInstructionObject(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
+                case QuickJsOPCode.OPCodeValue.OP_throw:
+                case QuickJsOPCode.OPCodeValue.OP_throw_error:
+                    result = new QuickJsInstructionThrow(pc, opcode, operand, jsFunctionBytecode, Atoms);
+                    break;
+                    
                 default:
                     result = new QuickJsInstruction(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;

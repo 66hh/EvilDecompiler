@@ -185,6 +185,17 @@ namespace EvilDecompiler.Decompiler
                     }
 
                 }
+                else if (curIns is QuickJsInstructionThrow @throw)
+                {
+
+                    builder.Append('\n');
+                    builder.Append(new string(' ', padding * 4));
+
+                    if (@throw.NoArg)
+                        builder.Append("throw");
+                    else
+                        builder.Append("throw " + stack.Pop());
+                }
                 else if (curIns is QuickJsInstructionCall call)
                 {
 
@@ -203,6 +214,9 @@ namespace EvilDecompiler.Decompiler
 
                         string str = stack.Pop() + "(" + p + ")";
                         stack.Pop();
+
+                        if (call.Constructor)
+                            str = "new " + str;
 
                         stack.Push(str);
                     }
