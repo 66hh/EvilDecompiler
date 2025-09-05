@@ -16,3 +16,9 @@ push_1 // Stack becomes ["0", "1"]
 add // Stack updates to ["0 + 1"]
 put_loc1 // Pop the value from the stack and generate the statement "loc1 = 0 + 1";
 ```
+
+# Warning
+This decompiler is still in an experimental version, please do not use it in production environments.
+
+# License
+This software is released under the AGPL3.0.
