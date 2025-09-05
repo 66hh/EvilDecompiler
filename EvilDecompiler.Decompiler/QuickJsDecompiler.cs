@@ -142,7 +142,7 @@ namespace EvilDecompiler.Decompiler
                     string a = stack.Pop();
                     string b = stack.Pop();
 
-                    stack.Push(a + " " + math.Symbol + " " + b);
+                    stack.Push("(" + b + " " + math.Symbol + " " + a + ")");
                 }
                 else if (curIns is QuickJsInstructionCompare compare)
                 {
