@@ -100,19 +100,23 @@ namespace EvilDecompiler.Decompiler
 
                 QuickJsInstruction curIns = ins[i];
 
-                string[] stackArray = stack.ToArray();
-                for (int j = 0; j < stack.Count; j++)
+                if (false)
                 {
+                    // debug
+                    string[] stackArray = stack.ToArray();
+                    for (int j = 0; j < stack.Count; j++)
+                    {
+                        builder.Append('\n');
+                        builder.Append(new string(' ', padding * 4));
+                        builder.Append("// Stack: " + (stack.Count() - j).ToString() + ", Value: " + stackArray[j]);
+                    }
+
                     builder.Append('\n');
                     builder.Append(new string(' ', padding * 4));
-                    builder.Append("// Stack: " + (stack.Count() - j).ToString() + ", Value: " + stackArray[j]);
+                    builder.Append("// Instruction: " + ins[i].ToString());
+
+                    builder.Append('\n');
                 }
-
-                builder.Append('\n');
-                builder.Append(new string(' ', padding * 4));
-                builder.Append("// Instruction: " + ins[i].ToString());
-
-                builder.Append('\n');
 
                 switch (curIns)
                 {
