@@ -229,13 +229,22 @@ namespace EvilDecompiler.Decompiler
                         if (call.HasResult)
                         {
 
-                            string str = stack.Pop() + "(" + p + ")";
+                            string str = stack.Pop() + "(" + p + ");";
                             stack.Pop();
 
                             if (call.Constructor)
                                 str = "new " + str;
 
-                            stack.Push(str);
+                            string retVar = "ret_" + call.GetHashCode().ToString();
+
+                            str = "let " + retVar + " = " + str;
+
+                            builder.Append('\n');
+                            builder.Append(new string(' ', padding * 4));
+
+                            builder.Append(str);
+
+                            stack.Push(retVar);
                         }
                         else
                         {
