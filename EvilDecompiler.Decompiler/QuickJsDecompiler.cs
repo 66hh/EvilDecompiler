@@ -1,5 +1,6 @@
 ﻿using EvilDecompiler.ByteCode;
 using EvilDecompiler.ByteCode.Instruction;
+using EvilDecompiler.Decompiler.Analyze;
 using EvilDecompiler.Decompiler.Instruction;
 using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;

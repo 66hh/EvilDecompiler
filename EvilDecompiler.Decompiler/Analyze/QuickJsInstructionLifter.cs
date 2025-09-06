@@ -6,7 +6,7 @@ using static EvilDecompiler.ByteCode.Type.QuickJsOPCode;
 using EvilDecompiler.ByteCode.Type;
 using EvilDecompiler.ByteCode.Operand;
 
-namespace EvilDecompiler.Decompiler
+namespace EvilDecompiler.Decompiler.Analyze
 {
     public class QuickJsInstructionLifter
     {
