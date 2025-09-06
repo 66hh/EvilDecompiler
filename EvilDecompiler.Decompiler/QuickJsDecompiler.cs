@@ -99,7 +99,7 @@ namespace EvilDecompiler.Decompiler
 
                 builder.Append('\n');
                 builder.Append(new string(' ', padding * 4));
-                builder.Append("// stack: " + stack.Count.ToString() + ", instruction: " + ins[i].ToString());
+                builder.Append("// Stack: " + stack.Count.ToString() + ", Instruction: " + ins[i].ToString());
 
                 QuickJsInstruction curIns = ins[i];
 
