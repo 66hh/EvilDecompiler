@@ -310,7 +310,7 @@ namespace EvilDecompiler.Decompiler
 
                             string val = stack.Pop();
 
-                            builder.Append("// Stack " + j.ToString() + " Total " + stack.Count().ToString() + ": " + val);
+                            builder.Append("// Stack: " + stack.Count().ToString() + ", Value: " + val);
 
                             if (j != 0)
                                 args += ", " + val;
