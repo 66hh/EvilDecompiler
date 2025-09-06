@@ -2,7 +2,7 @@
   "profiles": {
     "EvilDecompiler": {
       "commandName": "Project",
-      "commandLineArgs": "all ../../../../verify.jsc"
+      "commandLineArgs": "all ../../../../Test.jsc"
     }
   }
 }
