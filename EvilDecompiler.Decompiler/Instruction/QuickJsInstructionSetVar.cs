@@ -1,9 +1,11 @@
-﻿using EvilDecompiler.ByteCode.Type;
+﻿using EvilDecompiler.ByteCode.Instruction;
+using EvilDecompiler.ByteCode.Operand;
+using EvilDecompiler.ByteCode.Type;
 using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
 using static EvilDecompiler.ByteCode.Type.QuickJsOPCode;
 
-namespace EvilDecompiler.ByteCode.Instruction
+namespace EvilDecompiler.Decompiler.Instruction
 {
     public class QuickJsInstructionSetVar : QuickJsInstruction
     {
@@ -16,7 +18,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public bool Uninitialized;
 
-        public QuickJsInstructionSetVar(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
+        public QuickJsInstructionSetVar(long pc, QuickJsOPCode opCode, QuickJsOperand operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
             Value = operandObjects.ToString();
 

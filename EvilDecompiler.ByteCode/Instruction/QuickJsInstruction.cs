@@ -15,11 +15,20 @@ namespace EvilDecompiler.ByteCode.Instruction
         protected QuickJsOPCode opCode;
         protected QuickJsOperand operandObjects;
 
-        public QuickJsInstruction(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
+        public JsFunctionBytecode FunctionBytecode;
+        public AtomSet AtomSet;
+
+        public QuickJsInstruction(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : this(pc, opCode, parseOperandByFormat(opCode, operand, quickJsMethod, atoms), quickJsMethod, atoms)
+        {
+        }
+
+        public QuickJsInstruction(long pc, QuickJsOPCode opCode, QuickJsOperand operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
         {
             this.pc = pc;
             this.opCode = opCode;
-            operandObjects = parseOperandByFormat(opCode, operand, quickJsMethod, atoms);
+            operandObjects = operand;
+            FunctionBytecode = quickJsMethod;
+            AtomSet = atoms;
         }
 
         public QuickJsOPCodeFormat getFormat()
@@ -42,12 +51,12 @@ namespace EvilDecompiler.ByteCode.Instruction
             return pc;
         }
 
-        private QuickJsOperand parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
+        private static QuickJsOperand parseOperandByFormat(QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms)
         {
             Reader reader = new Reader(new MemoryStream(operand));
             QuickJsOperand result = new QuickJsOperandNone();
 
-            QuickJsOPCodeFormat format = getFormat();
+            QuickJsOPCodeFormat format = opCode.Format;
 
             switch (format)
             {

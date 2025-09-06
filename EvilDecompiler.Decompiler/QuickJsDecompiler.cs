@@ -1,5 +1,6 @@
 ﻿using EvilDecompiler.ByteCode;
 using EvilDecompiler.ByteCode.Instruction;
+using EvilDecompiler.Decompiler.Instruction;
 using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
 using System.Text;
@@ -16,8 +17,12 @@ namespace EvilDecompiler.Decompiler
 
         public QuickJsDecompiler(JsFunctionBytecode func, AtomSet atoms)
         {
-            QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func.Bytecode), func, atoms);
-            ins = disasm.ReadAllInstructions();
+            QuickJsDisAssembler disassembler = new QuickJsDisAssembler(new MemoryStream(func.Bytecode), func, atoms);
+            ins = disassembler.ReadAllInstructions();
+
+            QuickJsInstructionLifter lifter = new QuickJsInstructionLifter(ins);
+            ins = lifter.LiftToIR();
+
             function =  func;
             atomSet = atoms;
         }
