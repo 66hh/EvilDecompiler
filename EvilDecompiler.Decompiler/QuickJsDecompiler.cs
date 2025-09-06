@@ -93,15 +93,26 @@ namespace EvilDecompiler.Decompiler
             BuildLocalVarDefine(ref builder, padding);
 
             Stack<string> stack = new Stack<string>();
+            List<string> data = new List<string>();
 
             for (int i = 0; i < ins.Length; i++)
             {
 
+                QuickJsInstruction curIns = ins[i];
+
+                string[] stackArray = stack.ToArray();
+                for (int j = 0; j < stack.Count; j++)
+                {
+                    builder.Append('\n');
+                    builder.Append(new string(' ', padding * 4));
+                    builder.Append("// Stack: " + (stack.Count() - j).ToString() + ", Value: " + stackArray[j]);
+                }
+
                 builder.Append('\n');
                 builder.Append(new string(' ', padding * 4));
-                builder.Append("// Stack: " + stack.Count.ToString() + ", Instruction: " + ins[i].ToString());
+                builder.Append("// Instruction: " + ins[i].ToString());
 
-                QuickJsInstruction curIns = ins[i];
+                builder.Append('\n');
 
                 switch (curIns)
                 {
@@ -221,9 +232,9 @@ namespace EvilDecompiler.Decompiler
                         for (int j = 0; j < call.ExtPopCount; j++)
                         {
                             if (j == 0)
-                                p = stack.Pop();
+                                p += stack.Pop();
                             else
-                                p = ", " + stack.Pop();
+                                p += ", " + stack.Pop();
                         }
 
                         if (call.HasResult)
