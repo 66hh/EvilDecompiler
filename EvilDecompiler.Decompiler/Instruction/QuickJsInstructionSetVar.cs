@@ -36,6 +36,7 @@ namespace EvilDecompiler.Decompiler.Instruction
                 code == OPCodeValue.OP_set_loc3 ||
                 code == OPCodeValue.OP_set_loc8 ||
                 code == OPCodeValue.OP_set_var_ref ||
+                code == OPCodeValue.OP_set_var_ref0 ||
                 code == OPCodeValue.OP_set_var_ref1 ||
                 code == OPCodeValue.OP_set_var_ref2 ||
                 code == OPCodeValue.OP_set_var_ref3 ||
@@ -57,6 +58,12 @@ namespace EvilDecompiler.Decompiler.Instruction
                 GlobalVar = true;
             else
                 GlobalVar = false;
+
+            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref0 ||
+                opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref1 ||
+                opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref2 ||
+                opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref3)
+                Value = "var_ref" + (opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_get_var_ref0).ToString();
         }
     }
 }
