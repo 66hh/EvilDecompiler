@@ -97,6 +97,10 @@ namespace EvilDecompiler.Decompiler
             for (int i = 0; i < ins.Length; i++)
             {
 
+                builder.Append('\n');
+                builder.Append(new string(' ', padding * 4));
+                builder.Append("// stack: " + stack.Count.ToString());
+
                 QuickJsInstruction curIns = ins[i];
 
                 switch (curIns)
@@ -319,11 +323,6 @@ namespace EvilDecompiler.Decompiler
 
                         break;
                 }
-
-                builder.Append('\n');
-                builder.Append(new string(' ', padding * 4));
-                builder.Append("// stack: " + stack.Count.ToString());
-
             }
 
             padding--;
