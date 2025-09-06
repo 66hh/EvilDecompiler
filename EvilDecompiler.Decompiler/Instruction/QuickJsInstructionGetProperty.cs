@@ -28,7 +28,7 @@ namespace EvilDecompiler.Decompiler.Instruction
             }
 
             if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_length)
-                Value = "\"length\"";
+                Value = "length";
 
             if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_array_el2 || opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_array_el)
                 StackValue = true;
