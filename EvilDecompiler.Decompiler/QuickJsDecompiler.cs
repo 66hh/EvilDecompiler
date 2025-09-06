@@ -320,7 +320,9 @@ namespace EvilDecompiler.Decompiler
                         break;
                 }
 
-                Console.WriteLine("stack: " + stack.Count.ToString());
+                builder.Append('\n');
+                builder.Append(new string(' ', padding * 4));
+                builder.Append("// stack: " + stack.Count.ToString());
 
             }
 
