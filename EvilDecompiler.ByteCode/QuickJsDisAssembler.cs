@@ -32,172 +32,172 @@ namespace EvilDecompiler.ByteCode
             switch (opcode.OPCode)
             {
 
-                case QuickJsOPCode.OPCodeValue.OP_push_minus1:
-                case QuickJsOPCode.OPCodeValue.OP_push_0:
-                case QuickJsOPCode.OPCodeValue.OP_push_1:
-                case QuickJsOPCode.OPCodeValue.OP_push_2:
-                case QuickJsOPCode.OPCodeValue.OP_push_3:
-                case QuickJsOPCode.OPCodeValue.OP_push_4:
-                case QuickJsOPCode.OPCodeValue.OP_push_5:
-                case QuickJsOPCode.OPCodeValue.OP_push_6:
-                case QuickJsOPCode.OPCodeValue.OP_push_7:
-                case QuickJsOPCode.OPCodeValue.OP_push_i8:
-                case QuickJsOPCode.OPCodeValue.OP_push_i16:
-                case QuickJsOPCode.OPCodeValue.OP_push_i32:
-                case QuickJsOPCode.OPCodeValue.OP_push_this:
-                case QuickJsOPCode.OPCodeValue.OP_push_true:
-                case QuickJsOPCode.OPCodeValue.OP_push_false:
-                case QuickJsOPCode.OPCodeValue.OP_push_const:
-                case QuickJsOPCode.OPCodeValue.OP_push_const8:
-                case QuickJsOPCode.OPCodeValue.OP_push_atom_value:
-                case QuickJsOPCode.OPCodeValue.OP_push_empty_string:
+                case OPCodeValue.OP_push_minus1:
+                case OPCodeValue.OP_push_0:
+                case OPCodeValue.OP_push_1:
+                case OPCodeValue.OP_push_2:
+                case OPCodeValue.OP_push_3:
+                case OPCodeValue.OP_push_4:
+                case OPCodeValue.OP_push_5:
+                case OPCodeValue.OP_push_6:
+                case OPCodeValue.OP_push_7:
+                case OPCodeValue.OP_push_i8:
+                case OPCodeValue.OP_push_i16:
+                case OPCodeValue.OP_push_i32:
+                case OPCodeValue.OP_push_this:
+                case OPCodeValue.OP_push_true:
+                case OPCodeValue.OP_push_false:
+                case OPCodeValue.OP_push_const:
+                case OPCodeValue.OP_push_const8:
+                case OPCodeValue.OP_push_atom_value:
+                case OPCodeValue.OP_push_empty_string:
                     result = new QuickJsInstructionPushValue(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_get_arg:
-                case QuickJsOPCode.OPCodeValue.OP_get_arg0:
-                case QuickJsOPCode.OPCodeValue.OP_get_arg1:
-                case QuickJsOPCode.OPCodeValue.OP_get_arg2:
-                case QuickJsOPCode.OPCodeValue.OP_get_arg3:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc0:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc1:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc2:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc3:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc8:
-                case QuickJsOPCode.OPCodeValue.OP_get_var:
-                case QuickJsOPCode.OPCodeValue.OP_get_var_undef:
-                case QuickJsOPCode.OPCodeValue.OP_get_var_ref: // 暂时不知道var ref是咋和外面的变量对应的先写这里
-                case QuickJsOPCode.OPCodeValue.OP_get_var_ref0:
-                case QuickJsOPCode.OPCodeValue.OP_get_var_ref1:
-                case QuickJsOPCode.OPCodeValue.OP_get_var_ref2:
-                case QuickJsOPCode.OPCodeValue.OP_get_var_ref3:
-                case QuickJsOPCode.OPCodeValue.OP_get_var_ref_check:
-                case QuickJsOPCode.OPCodeValue.OP_get_loc_check:
+                case OPCodeValue.OP_get_arg:
+                case OPCodeValue.OP_get_arg0:
+                case OPCodeValue.OP_get_arg1:
+                case OPCodeValue.OP_get_arg2:
+                case OPCodeValue.OP_get_arg3:
+                case OPCodeValue.OP_get_loc:
+                case OPCodeValue.OP_get_loc0:
+                case OPCodeValue.OP_get_loc1:
+                case OPCodeValue.OP_get_loc2:
+                case OPCodeValue.OP_get_loc3:
+                case OPCodeValue.OP_get_loc8:
+                case OPCodeValue.OP_get_var:
+                case OPCodeValue.OP_get_var_undef:
+                case OPCodeValue.OP_get_var_ref: // 暂时不知道var ref是咋和外面的变量对应的先写这里
+                case OPCodeValue.OP_get_var_ref0:
+                case OPCodeValue.OP_get_var_ref1:
+                case OPCodeValue.OP_get_var_ref2:
+                case OPCodeValue.OP_get_var_ref3:
+                case OPCodeValue.OP_get_var_ref_check:
+                case OPCodeValue.OP_get_loc_check:
                     result = new QuickJsInstructionGetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_get_array_el:
-                case QuickJsOPCode.OPCodeValue.OP_get_array_el2:
-                case QuickJsOPCode.OPCodeValue.OP_get_length:
-                case QuickJsOPCode.OPCodeValue.OP_get_field:
-                case QuickJsOPCode.OPCodeValue.OP_get_field2:
+                case OPCodeValue.OP_get_array_el:
+                case OPCodeValue.OP_get_array_el2:
+                case OPCodeValue.OP_get_length:
+                case OPCodeValue.OP_get_field:
+                case OPCodeValue.OP_get_field2:
                     result = new QuickJsInstructionGetProperty(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_put_arg:
-                case QuickJsOPCode.OPCodeValue.OP_put_arg0:
-                case QuickJsOPCode.OPCodeValue.OP_put_arg1:
-                case QuickJsOPCode.OPCodeValue.OP_put_arg2:
-                case QuickJsOPCode.OPCodeValue.OP_put_arg3:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc0:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc1:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc2:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc3:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc8:
-                case QuickJsOPCode.OPCodeValue.OP_put_var:
-                case QuickJsOPCode.OPCodeValue.OP_put_var_init:
-                case QuickJsOPCode.OPCodeValue.OP_put_var_ref:
-                case QuickJsOPCode.OPCodeValue.OP_put_var_ref0:
-                case QuickJsOPCode.OPCodeValue.OP_put_var_ref1:
-                case QuickJsOPCode.OPCodeValue.OP_put_var_ref2:
-                case QuickJsOPCode.OPCodeValue.OP_put_var_ref3:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc_check:
-                case QuickJsOPCode.OPCodeValue.OP_put_loc_check_init:
+                case OPCodeValue.OP_put_arg:
+                case OPCodeValue.OP_put_arg0:
+                case OPCodeValue.OP_put_arg1:
+                case OPCodeValue.OP_put_arg2:
+                case OPCodeValue.OP_put_arg3:
+                case OPCodeValue.OP_put_loc:
+                case OPCodeValue.OP_put_loc0:
+                case OPCodeValue.OP_put_loc1:
+                case OPCodeValue.OP_put_loc2:
+                case OPCodeValue.OP_put_loc3:
+                case OPCodeValue.OP_put_loc8:
+                case OPCodeValue.OP_put_var:
+                case OPCodeValue.OP_put_var_init:
+                case OPCodeValue.OP_put_var_ref:
+                case OPCodeValue.OP_put_var_ref0:
+                case OPCodeValue.OP_put_var_ref1:
+                case OPCodeValue.OP_put_var_ref2:
+                case OPCodeValue.OP_put_var_ref3:
+                case OPCodeValue.OP_put_loc_check:
+                case OPCodeValue.OP_put_loc_check_init:
 
-                case QuickJsOPCode.OPCodeValue.OP_set_arg:
-                case QuickJsOPCode.OPCodeValue.OP_set_arg0:
-                case QuickJsOPCode.OPCodeValue.OP_set_arg1:
-                case QuickJsOPCode.OPCodeValue.OP_set_arg2:
-                case QuickJsOPCode.OPCodeValue.OP_set_arg3:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc0:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc1:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc2:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc3:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc8:
-                case QuickJsOPCode.OPCodeValue.OP_set_var_ref:
-                case QuickJsOPCode.OPCodeValue.OP_set_var_ref0:
-                case QuickJsOPCode.OPCodeValue.OP_set_var_ref1:
-                case QuickJsOPCode.OPCodeValue.OP_set_var_ref2:
-                case QuickJsOPCode.OPCodeValue.OP_set_var_ref3:
-                case QuickJsOPCode.OPCodeValue.OP_set_name:
-                case QuickJsOPCode.OPCodeValue.OP_set_loc_uninitialized:
-                case QuickJsOPCode.OPCodeValue.OP_define_field:
+                case OPCodeValue.OP_set_arg:
+                case OPCodeValue.OP_set_arg0:
+                case OPCodeValue.OP_set_arg1:
+                case OPCodeValue.OP_set_arg2:
+                case OPCodeValue.OP_set_arg3:
+                case OPCodeValue.OP_set_loc:
+                case OPCodeValue.OP_set_loc0:
+                case OPCodeValue.OP_set_loc1:
+                case OPCodeValue.OP_set_loc2:
+                case OPCodeValue.OP_set_loc3:
+                case OPCodeValue.OP_set_loc8:
+                case OPCodeValue.OP_set_var_ref:
+                case OPCodeValue.OP_set_var_ref0:
+                case OPCodeValue.OP_set_var_ref1:
+                case OPCodeValue.OP_set_var_ref2:
+                case OPCodeValue.OP_set_var_ref3:
+                case OPCodeValue.OP_set_name:
+                case OPCodeValue.OP_set_loc_uninitialized:
+                case OPCodeValue.OP_define_field:
                     result = new QuickJsInstructionSetVar(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_dup:
-                case QuickJsOPCode.OPCodeValue.OP_dup1:
-                case QuickJsOPCode.OPCodeValue.OP_dup2:
-                case QuickJsOPCode.OPCodeValue.OP_dup3:
+                case OPCodeValue.OP_dup:
+                case OPCodeValue.OP_dup1:
+                case OPCodeValue.OP_dup2:
+                case OPCodeValue.OP_dup3:
                     result = new QuickJsInstructionDup(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_drop:
+                case OPCodeValue.OP_drop:
                     result = new QuickJsInstructionPop(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_fclosure:
-                case QuickJsOPCode.OPCodeValue.OP_fclosure8:
+                case OPCodeValue.OP_fclosure:
+                case OPCodeValue.OP_fclosure8:
                     result = new QuickJsInstructionClosure(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_typeof:
-                case QuickJsOPCode.OPCodeValue.OP_typeof_is_function:
-                case QuickJsOPCode.OPCodeValue.OP_typeof_is_undefined:
+                case OPCodeValue.OP_typeof:
+                case OPCodeValue.OP_typeof_is_function:
+                case OPCodeValue.OP_typeof_is_undefined:
                     result = new QuickJsInstructionTypeOf(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_lt:
-                case QuickJsOPCode.OPCodeValue.OP_lte:
-                case QuickJsOPCode.OPCodeValue.OP_gt:
-                case QuickJsOPCode.OPCodeValue.OP_gte:
-                case QuickJsOPCode.OPCodeValue.OP_eq:
-                case QuickJsOPCode.OPCodeValue.OP_neq:
-                case QuickJsOPCode.OPCodeValue.OP_strict_neq:
-                case QuickJsOPCode.OPCodeValue.OP_strict_eq:
+                case OPCodeValue.OP_lt:
+                case OPCodeValue.OP_lte:
+                case OPCodeValue.OP_gt:
+                case OPCodeValue.OP_gte:
+                case OPCodeValue.OP_eq:
+                case OPCodeValue.OP_neq:
+                case OPCodeValue.OP_strict_neq:
+                case OPCodeValue.OP_strict_eq:
                     result = new QuickJsInstructionCompare(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_return:
-                case QuickJsOPCode.OPCodeValue.OP_return_async:
-                case QuickJsOPCode.OPCodeValue.OP_return_undef:
+                case OPCodeValue.OP_return:
+                case OPCodeValue.OP_return_async:
+                case OPCodeValue.OP_return_undef:
                     result = new QuickJsInstructionReturn(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
 
-                case QuickJsOPCode.OPCodeValue.OP_mul:
-                case QuickJsOPCode.OPCodeValue.OP_div:
-                case QuickJsOPCode.OPCodeValue.OP_mod:
-                case QuickJsOPCode.OPCodeValue.OP_add:
-                case QuickJsOPCode.OPCodeValue.OP_sub:
-                case QuickJsOPCode.OPCodeValue.OP_pow:
-                case QuickJsOPCode.OPCodeValue.OP_shl:
-                case QuickJsOPCode.OPCodeValue.OP_sar:
-                case QuickJsOPCode.OPCodeValue.OP_shr:
-                case QuickJsOPCode.OPCodeValue.OP_xor:
-                case QuickJsOPCode.OPCodeValue.OP_and:
-                case QuickJsOPCode.OPCodeValue.OP_or:
+                case OPCodeValue.OP_mul:
+                case OPCodeValue.OP_div:
+                case OPCodeValue.OP_mod:
+                case OPCodeValue.OP_add:
+                case OPCodeValue.OP_sub:
+                case OPCodeValue.OP_pow:
+                case OPCodeValue.OP_shl:
+                case OPCodeValue.OP_sar:
+                case OPCodeValue.OP_shr:
+                case OPCodeValue.OP_xor:
+                case OPCodeValue.OP_and:
+                case OPCodeValue.OP_or:
                     result = new QuickJsInstructionMath(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_call_constructor:
-                case QuickJsOPCode.OPCodeValue.OP_call_method:
-                case QuickJsOPCode.OPCodeValue.OP_tail_call_method:
+                case OPCodeValue.OP_call_constructor:
+                case OPCodeValue.OP_call_method:
+                case OPCodeValue.OP_tail_call_method:
                     result = new QuickJsInstructionCall(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
 
-                case QuickJsOPCode.OPCodeValue.OP_object:
-                case QuickJsOPCode.OPCodeValue.OP_special_object:
-                case QuickJsOPCode.OPCodeValue.OP_array_from:
+                case OPCodeValue.OP_object:
+                case OPCodeValue.OP_special_object:
+                case OPCodeValue.OP_array_from:
                     result = new QuickJsInstructionObject(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
 
-                case QuickJsOPCode.OPCodeValue.OP_throw:
-                case QuickJsOPCode.OPCodeValue.OP_throw_error:
+                case OPCodeValue.OP_throw:
+                case OPCodeValue.OP_throw_error:
                     result = new QuickJsInstructionThrow(pc, opcode, operand, jsFunctionBytecode, Atoms);
                     break;
                     
