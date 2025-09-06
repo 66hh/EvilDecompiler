@@ -235,7 +235,14 @@ namespace EvilDecompiler.JsObject.Types
             if (index == 0)
                 return null;
 
-            return Atoms[index - 1];
+            try
+            {
+                return Atoms[index - 1];
+            }
+            catch
+            {
+                return new JsString("UnknownAtomString" + index.ToString());
+            }
         }
 
         public JsString? Get(AtomIdx index)
