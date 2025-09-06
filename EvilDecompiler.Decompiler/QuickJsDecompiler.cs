@@ -99,214 +99,225 @@ namespace EvilDecompiler.Decompiler
 
                 QuickJsInstruction curIns = ins[i];
 
-                if (curIns is QuickJsInstructionGetVar getVar)
+                switch (curIns)
                 {
-                    stack.Push(getVar.Value);
-                }
-                else if (curIns is QuickJsInstructionGetProperty getProperty)
-                {
-                    // 判断是否要在栈中保留原始变量
 
-                    string num = "";
+                    case QuickJsInstructionGetVar getVar:
+                        stack.Push(getVar.Value);
+                        break;
 
-                    if (getProperty.StackValue)
-                        num = stack.Pop();
+                    case QuickJsInstructionGetProperty getProperty:
 
-                    string origin;
+                        // 判断是否要在栈中保留原始变量
 
-                    if (getProperty.PushOrigin)
-                    {
-                        origin = stack.Peek();
-                    }
-                    else
-                    {
-                        origin = stack.Pop();
-                    }
+                        string num = "";
 
-                    if (getProperty.StackValue)
-                        stack.Push(origin + "[" + num + "]");
-                    else
-                        stack.Push(origin + "[" + getProperty.Value + "]");
-                }
-                else if (curIns is QuickJsInstructionPushValue pushValue)
-                {
-                    stack.Push(pushValue.Value);
-                }
-                else if (curIns is QuickJsInstructionTypeOf typeOf)
-                {
-                    if (typeOf.IsType == "")
-                    {
-                        stack.Push("typeof " + stack.Pop());
-                    }
-                    else
-                    {
-                        stack.Push("typeof " + stack.Pop() + " === " + typeOf.IsType);
-                    }
-                }
-                else if (curIns is QuickJsInstructionMath math)
-                {
-                    string a = stack.Pop();
-                    string b = stack.Pop();
+                        if (getProperty.StackValue)
+                            num = stack.Pop();
 
-                    stack.Push("(" + b + " " + math.Symbol + " " + a + ")");
-                }
-                else if (curIns is QuickJsInstructionCompare compare)
-                {
-                    string a = stack.Pop();
-                    string b = stack.Pop();
+                        string origin;
 
-                    stack.Push(a + " " + compare.Symbol + " " + b);
-                }
-                else if (curIns is QuickJsInstructionClosure closure)
-                {
-                    if (closure.Function != null)
-                    {
-
-                        string funcName = "sub_" + function.GetHashCode().ToString();
-
-                        JsString? atomString = atomSet.Get(function.FunctionName);
-
-                        if (atomString != null)
+                        if (getProperty.PushOrigin)
                         {
-                            funcName = atomString.Value.Replace("<", "").Replace(">", "");
+                            origin = stack.Peek();
                         }
-
-                        try
-                        {
-                            QuickJsDecompiler closureDecompiler = new QuickJsDecompiler(closure.Function, atomSet);
-                            builder.Append('\n');
-                            builder.Append(closureDecompiler.Decompile(padding));
-                            stack.Push(funcName);
-                        }
-                        catch (Exception e)
-                        {
-                            builder.Append("\n /*\n " + e.ToString() + "\n*/");
-                            stack.Push(funcName);
-                        }
-
-                    }
-                    else
-                    {
-                        stack.Push("null");
-                    }
-
-                }
-                else if (curIns is QuickJsInstructionThrow @throw)
-                {
-
-                    builder.Append('\n');
-                    builder.Append(new string(' ', padding * 4));
-
-                    if (@throw.NoArg)
-                        builder.Append("throw");
-                    else
-                        builder.Append("throw " + stack.Pop());
-                }
-                else if (curIns is QuickJsInstructionCall call)
-                {
-
-                    string p = "";
-
-                    for (int j = 0; j < call.ExtPopCount; j++)
-                    {
-                        if (j == 0)
-                            p = stack.Pop();
                         else
-                            p = ", " + stack.Pop();
-                    }
+                        {
+                            origin = stack.Pop();
+                        }
 
-                    if (call.HasResult)
-                    {
+                        if (getProperty.StackValue)
+                            stack.Push(origin + "[" + num + "]");
+                        else
+                            stack.Push(origin + "[" + getProperty.Value + "]");
 
-                        string str = stack.Pop() + "(" + p + ")";
-                        stack.Pop();
+                        break;
 
-                        if (call.Constructor)
-                            str = "new " + str;
+                    case QuickJsInstructionPushValue pushValue:
+                        stack.Push(pushValue.Value);
+                        break;
 
-                        stack.Push(str);
-                    }
-                    else
-                    {
-                        builder.Append('\n');
-                        builder.Append(new string(' ', padding * 4));
-                        builder.Append(stack.Pop() + "(" + p + ");");
-                        stack.Pop();
-                    }
+                    case QuickJsInstructionTypeOf typeOf:
+                        if (typeOf.IsType == "")
+                        {
+                            stack.Push("typeof " + stack.Pop());
+                        }
+                        else
+                        {
+                            stack.Push("typeof " + stack.Pop() + " === " + typeOf.IsType);
+                        }
+                        break;
 
-                }
-                else if (curIns is QuickJsInstructionSetVar setVar)
-                {
+                    case QuickJsInstructionMath math:
+                        string secondNumber = stack.Pop();
+                        string firstNumber = stack.Pop();
 
-                    if (!setVar.Uninitialized)
-                    {
-                        string expression = stack.Pop();
+                        stack.Push("(" + firstNumber + " " + math.Symbol + " " + secondNumber + ")");
+                        break;
+
+                    case QuickJsInstructionCompare compare:
+                        string secondValue = stack.Pop();
+                        string firstValue = stack.Pop();
+
+                        stack.Push(firstValue + " " + compare.Symbol + " " + secondValue);
+
+                        break;
+
+                    case QuickJsInstructionClosure closure:
+
+                        if (closure.Function != null)
+                        {
+
+                            string funcName = "sub_" + function.GetHashCode().ToString();
+
+                            JsString? atomString = atomSet.Get(function.FunctionName);
+
+                            if (atomString != null)
+                            {
+                                funcName = atomString.Value.Replace("<", "").Replace(">", "");
+                            }
+
+                            try
+                            {
+                                QuickJsDecompiler closureDecompiler = new QuickJsDecompiler(closure.Function, atomSet);
+                                builder.Append('\n');
+                                builder.Append(closureDecompiler.Decompile(padding));
+                                stack.Push(funcName);
+                            }
+                            catch (Exception e)
+                            {
+                                builder.Append("\n /*\n " + e.ToString() + "\n*/");
+                                stack.Push(funcName);
+                            }
+
+                        }
+                        else
+                        {
+                            stack.Push("null");
+                        }
+
+                        break;
+
+                    case QuickJsInstructionThrow @throw:
+
                         builder.Append('\n');
                         builder.Append(new string(' ', padding * 4));
 
-                        if (setVar.GlobalVar)
-                            builder.Append("Global[" + setVar.Value + "] = " + expression + ";");
+                        if (@throw.NoArg)
+                            builder.Append("throw");
                         else
-                            builder.Append(setVar.Value + " = " + expression + ";");
+                            builder.Append("throw " + stack.Pop());
 
-                        if (setVar.PopNewValue)
-                            if (setVar.GlobalVar)
-                                stack.Push("Global[" + setVar.Value + "]");
+                        break;
+
+                    case QuickJsInstructionCall call:
+
+                        string p = "";
+
+                        for (int j = 0; j < call.ExtPopCount; j++)
+                        {
+                            if (j == 0)
+                                p = stack.Pop();
                             else
-                                stack.Push(setVar.Value);
-                    }
-                }
-                else if (curIns is QuickJsInstructionDup dup)
-                {
-                    string value = stack.Peek();
-                    for (int j = 0; j < dup.DupCount; j++)
-                    {
-                        stack.Push(value);
-                    }
-                }
-                else if (curIns is QuickJsInstructionReturn ret)
-                {
+                                p = ", " + stack.Pop();
+                        }
 
-                    builder.Append('\n');
-                    builder.Append(new string(' ', padding * 4));
+                        if (call.HasResult)
+                        {
 
-                    if (ret.HasValue)
-                        builder.Append("return " + stack.Pop() + ";");
-                    else
-                        builder.Append("return;");
-                }
-                else if (curIns is QuickJsInstructionPop pop)
-                {
-                    stack.Pop();
-                }
-                else if (curIns is QuickJsInstructionObject obj)
-                {
-                    stack.Push("{}");
-                }
-                else
-                {
-                    builder.Append('\n');
+                            string str = stack.Pop() + "(" + p + ")";
+                            stack.Pop();
 
-                    for (int j = 0; j < curIns.getOpCode().PopCount; j++)
-                    {
+                            if (call.Constructor)
+                                str = "new " + str;
+
+                            stack.Push(str);
+                        }
+                        else
+                        {
+                            builder.Append('\n');
+                            builder.Append(new string(' ', padding * 4));
+                            builder.Append(stack.Pop() + "(" + p + ");");
+                            stack.Pop();
+                        }
+
+                        break;
+
+                    case QuickJsInstructionSetVar setVar:
+
+                        if (!setVar.Uninitialized)
+                        {
+                            string expression = stack.Pop();
+                            builder.Append('\n');
+                            builder.Append(new string(' ', padding * 4));
+
+                            if (setVar.GlobalVar)
+                                builder.Append("Global[" + setVar.Value + "] = " + expression + ";");
+                            else
+                                builder.Append(setVar.Value + " = " + expression + ";");
+
+                            if (setVar.PopNewValue)
+                                if (setVar.GlobalVar)
+                                    stack.Push("Global[" + setVar.Value + "]");
+                                else
+                                    stack.Push(setVar.Value);
+                        }
+
+                        break;
+
+                    case QuickJsInstructionDup dup:
+                        string value = stack.Peek();
+                        for (int j = 0; j < dup.DupCount; j++)
+                        {
+                            stack.Push(value);
+                        }
+
+                        break;
+
+                    case QuickJsInstructionReturn ret:
+
                         builder.Append('\n');
                         builder.Append(new string(' ', padding * 4));
 
-                        string value = stack.Pop();
+                        if (ret.HasValue)
+                            builder.Append("return " + stack.Pop() + ";");
+                        else
+                            builder.Append("return;");
 
-                        builder.Append("// stack " + j.ToString() + " total " + stack.Count().ToString() + ": " + value);
-                    }
+                        break;
 
-                    for (int j = 0; j < curIns.getOpCode().PushCount; j++)
-                    {
-                        stack.Push("UnsupportedValue");
-                    }
+                    case QuickJsInstructionPop pop:
+                        stack.Pop();
+                        break;
 
-                    builder.Append('\n');
-                    builder.Append(new string(' ', padding * 4));
-                    builder.Append("// Unsupported Instruction: " + curIns.ToString());
-                    builder.Append('\n');
+                    case QuickJsInstructionObject obj:
+                        stack.Push("{}");
+                        break;
 
+                    default:
+                        builder.Append('\n');
+
+                        for (int j = 0; j < curIns.getOpCode().PopCount; j++)
+                        {
+                            builder.Append('\n');
+                            builder.Append(new string(' ', padding * 4));
+
+                            string val = stack.Pop();
+
+                            builder.Append("// stack " + j.ToString() + " total " + stack.Count().ToString() + ": " + val);
+                        }
+
+                        for (int j = 0; j < curIns.getOpCode().PushCount; j++)
+                        {
+                            stack.Push("UnsupportedValue");
+                        }
+
+                        builder.Append('\n');
+                        builder.Append(new string(' ', padding * 4));
+                        builder.Append("// Unsupported Instruction: " + curIns.ToString());
+                        builder.Append('\n');
+
+                        break;
                 }
 
                 Console.WriteLine("stack: " + stack.Count.ToString());
