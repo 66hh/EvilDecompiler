@@ -148,7 +148,7 @@ namespace EvilDecompiler.Decompiler
                         if (getProperty.StackValue)
                             stack.Push(origin + "[" + num + "]");
                         else
-                            stack.Push(origin + "[" + getProperty.Value + "]");
+                            stack.Push(origin + "[\"" + getProperty.Value + "\"]");
 
                         break;
 
@@ -244,7 +244,7 @@ namespace EvilDecompiler.Decompiler
                         if (call.HasResult)
                         {
 
-                            string str = stack.Pop() + "(" + p + ");";
+                            string str = stack.Pop().Replace("\"", "") + "(" + p + ");";
                             stack.Pop();
 
                             if (call.Constructor)
@@ -265,7 +265,7 @@ namespace EvilDecompiler.Decompiler
                         {
                             builder.Append('\n');
                             builder.Append(new string(' ', padding * 4));
-                            builder.Append(stack.Pop() + "(" + p + ");");
+                            builder.Append(stack.Pop().Replace("\"", "") + "(" + p + ");");
                             stack.Pop();
                         }
 
