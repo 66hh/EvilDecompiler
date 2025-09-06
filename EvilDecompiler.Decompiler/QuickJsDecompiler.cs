@@ -303,7 +303,12 @@ namespace EvilDecompiler.Decompiler
 
                         for (int j = 0; j < curIns.getOpCode().PopCount; j++)
                         {
-                            stack.Pop();
+                            builder.Append('\n');
+                            builder.Append(new string(' ', padding * 4));
+
+                            string val = stack.Pop();
+
+                            builder.Append("// stack " + j.ToString() + " total " + stack.Count().ToString() + ": " + val);
                         }
 
                         for (int j = 0; j < curIns.getOpCode().PushCount; j++)
