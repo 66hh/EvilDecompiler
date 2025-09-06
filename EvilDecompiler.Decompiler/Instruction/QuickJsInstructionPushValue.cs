@@ -19,7 +19,15 @@ namespace EvilDecompiler.Decompiler.Instruction
             }
             else if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_push_empty_string)
             {
-                Value = "";
+                Value = "\"\"";
+            }
+            else if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_push_true)
+            {
+                Value = "true";
+            }
+            else if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_push_false)
+            {
+                Value = "false";
             }
             else
             {
