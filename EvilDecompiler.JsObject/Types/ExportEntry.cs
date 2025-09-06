@@ -16,9 +16,9 @@
 
         public int ReqModuleIdx;
 
-        public AtomIdx? LocalName;
+        public BcIdx? LocalName;
 
-        public AtomIdx? ExportName;
+        public BcIdx? ExportName;
 
     }
 }

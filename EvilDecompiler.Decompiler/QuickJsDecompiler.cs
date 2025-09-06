@@ -49,7 +49,7 @@ namespace EvilDecompiler.Decompiler
 
             string funcName = "sub_" + function.GetHashCode().ToString();
 
-            JsString? atomString = atomSet.Get(function.FunctionName.Value);
+            JsString? atomString = atomSet.Get(function.FunctionName);
 
             if (atomString != null)
             {
@@ -158,7 +158,7 @@ namespace EvilDecompiler.Decompiler
 
                         string funcName = "sub_" + function.GetHashCode().ToString();
 
-                        JsString? atomString = atomSet.Get(function.FunctionName.Value);
+                        JsString? atomString = atomSet.Get(function.FunctionName);
 
                         if (atomString != null)
                         {

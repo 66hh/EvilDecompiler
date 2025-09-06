@@ -238,6 +238,16 @@ namespace EvilDecompiler.JsObject.Types
             return Atoms[index - 1];
         }
 
+        public JsString? Get(AtomIdx index)
+        {
+            return Get(index.Value);
+        }
+
+        public JsString? Get(BcIdx index)
+        {
+            return Get(index.ToAtomIdx());
+        }
+
         public int Add(JsString value)
         {
             // JS_ATOM_NULL == 0

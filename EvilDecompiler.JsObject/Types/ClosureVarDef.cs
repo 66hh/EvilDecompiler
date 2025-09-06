@@ -3,13 +3,13 @@
     public class ClosureVarDef
     {
 
-        public AtomIdx VarName;
+        public BcIdx VarName;
 
         public int VarIdx;
 
         public ClosureVarFlag Flag;
 
-        public ClosureVarDef(AtomIdx name, int idx, ClosureVarFlag flag)
+        public ClosureVarDef(BcIdx name, int idx, ClosureVarFlag flag)
         {
             VarName = name;
             VarIdx = idx;

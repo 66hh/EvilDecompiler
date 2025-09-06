@@ -7,7 +7,7 @@
 
         public int JsMode;
 
-        public AtomIdx FunctionName;
+        public BcIdx FunctionName;
 
         public ushort ArgCount;
 
@@ -27,7 +27,7 @@
 
         public List<JsObject> CPool;
 
-        public JsFunctionBytecode(FunctionFlag flag, int mode, AtomIdx name, ushort arg, ushort var, ushort def, ushort stack, List<VarDef> vars, List<ClosureVarDef> cvars, byte[] code, DebugInfo? debug, List<JsObject> cpool)
+        public JsFunctionBytecode(FunctionFlag flag, int mode, BcIdx name, ushort arg, ushort var, ushort def, ushort stack, List<VarDef> vars, List<ClosureVarDef> cvars, byte[] code, DebugInfo? debug, List<JsObject> cpool)
         {
             Tag = ObjectTag.BC_TAG_FUNCTION_BYTECODE;
             FunctionFlag = flag;

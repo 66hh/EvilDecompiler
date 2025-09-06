@@ -5,7 +5,7 @@
 
         public int VarIdx;
 
-        public AtomIdx? ImportName;
+        public BcIdx? ImportName;
 
         public int ReqModuleIdx;
 

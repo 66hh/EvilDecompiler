@@ -1,21 +1,17 @@
 ﻿namespace EvilDecompiler.JsObject.Types
 {
-    // BcIdx是JsObject中的索引格式，AtomIdx才是引擎内部以及操作数中所使用的格式
-
-    public class AtomIdx
+    public class BcIdx
     {
-
-        private readonly int mask = 1 << 31;
 
         public bool IsTaggedInt
         {
             get
             {
-                return (Flag & mask) != 0;
+                return (Flag & 1) != 0;
             }
             set
             {
-                Flag = Value | (value ? mask : 0);
+                Flag = (Value << 1) | (value ? 1 : 0);
             }
         }
 
@@ -23,25 +19,30 @@
         {
             get
             {
-                return Flag & ~mask;
+                return Flag >> 1;
             }
             set
             {
-                Flag = value | (IsTaggedInt ? mask : 0);
+                Flag = (value << 1) | (IsTaggedInt ? 1 : 0);
             }
         }
 
         public int Flag;
 
-        public AtomIdx(int flag)
+        public BcIdx(int flag)
         {
             Flag = flag;
         }
 
-        public AtomIdx(int value, bool tagged)
+        public BcIdx(int value, bool tagged)
         {
             IsTaggedInt = tagged;
             Value = value;
+        }
+
+        public AtomIdx ToAtomIdx()
+        {
+            return new AtomIdx(Value, IsTaggedInt);
         }
     }
 }

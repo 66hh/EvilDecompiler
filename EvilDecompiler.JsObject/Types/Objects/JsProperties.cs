@@ -3,9 +3,9 @@
     public class JsProperties : JsObject
     {
 
-        public Dictionary<AtomIdx, JsObject> Properties;
+        public Dictionary<BcIdx, JsObject> Properties;
 
-        public JsProperties(Dictionary<AtomIdx, JsObject> props)
+        public JsProperties(Dictionary<BcIdx, JsObject> props)
         {
             Tag = ObjectTag.BC_TAG_OBJECT;
             Properties = props;

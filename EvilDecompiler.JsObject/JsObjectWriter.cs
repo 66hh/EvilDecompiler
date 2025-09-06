@@ -50,7 +50,7 @@ namespace EvilDecompiler.JsObject
         }
 
 
-        void WriteAtomIdx(AtomIdx idx)
+        void WriteAtomIdx(BcIdx idx)
         {
             writer.WriteLeb128(idx.Flag);
         }
@@ -208,7 +208,7 @@ namespace EvilDecompiler.JsObject
             {
                 ReqModuleEntry entry = module.ReqModules[i];
 
-                WriteAtomIdx(entry.ModuleNames ?? new AtomIdx(0));
+                WriteAtomIdx(entry.ModuleNames ?? new BcIdx(0));
             }
 
             writer.WriteLeb128(module.ModuleExports.Count);
@@ -225,10 +225,10 @@ namespace EvilDecompiler.JsObject
                 else
                 {
                     writer.WriteLeb128(entry.ReqModuleIdx);
-                    WriteAtomIdx(entry.LocalName ?? new AtomIdx(0));
+                    WriteAtomIdx(entry.LocalName ?? new BcIdx(0));
                 }
 
-                WriteAtomIdx(entry.ExportName ?? new AtomIdx(0));
+                WriteAtomIdx(entry.ExportName ?? new BcIdx(0));
             }
 
             writer.WriteLeb128(module.ModuleStarExports.Count);
@@ -245,7 +245,7 @@ namespace EvilDecompiler.JsObject
                 ImportEntry entry = module.ModuleImports[i];
 
                 writer.WriteLeb128(entry.VarIdx);
-                WriteAtomIdx(entry.ImportName ?? new AtomIdx(0));
+                WriteAtomIdx(entry.ImportName ?? new BcIdx(0));
                 writer.WriteLeb128(entry.ReqModuleIdx);
             }
 

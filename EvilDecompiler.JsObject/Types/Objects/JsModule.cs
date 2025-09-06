@@ -3,7 +3,7 @@
     public class JsModule : JsObject
     {
 
-        public AtomIdx ModuleName;
+        public BcIdx ModuleName;
 
         public List<ReqModuleEntry> ReqModules;
 
@@ -15,7 +15,7 @@
 
         public JsObject FunctionObject;
 
-        public JsModule(AtomIdx name, List<ReqModuleEntry> reqs, List<ExportEntry> exports, List<StarExportEntry> stars, List<ImportEntry> imports, JsObject function)
+        public JsModule(BcIdx name, List<ReqModuleEntry> reqs, List<ExportEntry> exports, List<StarExportEntry> stars, List<ImportEntry> imports, JsObject function)
         {
 
             Tag = ObjectTag.BC_TAG_MODULE;

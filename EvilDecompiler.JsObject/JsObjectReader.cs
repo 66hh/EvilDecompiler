@@ -172,11 +172,11 @@ namespace EvilDecompiler.JsObject
         JsProperties ReadJsProperties()
         {
             int count = reader.ReadLeb128();
-            Dictionary<AtomIdx, Types.Objects.JsObject> props = new Dictionary<AtomIdx, Types.Objects.JsObject>();
+            Dictionary<BcIdx, Types.Objects.JsObject> props = new Dictionary<BcIdx, Types.Objects.JsObject>();
 
             for (int i = 0; i < count; i++)
             {
-                AtomIdx key = ReadAtomIdx();
+                BcIdx key = ReadAtomIdx();
                 props.Add(key, ReadObjectRec());
             }
 
@@ -188,7 +188,7 @@ namespace EvilDecompiler.JsObject
             FunctionFlag func_flag = new FunctionFlag(reader.ReadUInt16());
 
             int js_mode = reader.ReadByte();
-            AtomIdx func_name = ReadAtomIdx();
+            BcIdx func_name = ReadAtomIdx();
 
             ushort arg_count = (ushort)reader.ReadLeb128();
             ushort var_count = (ushort)reader.ReadLeb128();
@@ -204,7 +204,7 @@ namespace EvilDecompiler.JsObject
 
             for (int i = 0; i < local_count; i++)
             {
-                AtomIdx name = ReadAtomIdx();
+                BcIdx name = ReadAtomIdx();
                 int level = reader.ReadLeb128();
                 int next = reader.ReadLeb128();
                 VarFlag var_flag = new VarFlag(reader.ReadByte());
@@ -215,7 +215,7 @@ namespace EvilDecompiler.JsObject
 
             for (int i = 0; i < closure_var_count; i++)
             {
-                AtomIdx name = ReadAtomIdx();
+                BcIdx name = ReadAtomIdx();
                 int idx = reader.ReadLeb128();
                 ClosureVarFlag closure_var_flag = new ClosureVarFlag(reader.ReadByte());
                 closure_var_defs.Add(new ClosureVarDef(name, idx, closure_var_flag));
@@ -227,7 +227,7 @@ namespace EvilDecompiler.JsObject
 
             if (func_flag.HasDebug != 0)
             {
-                AtomIdx file = ReadAtomIdx();
+                BcIdx file = ReadAtomIdx();
                 int line = reader.ReadLeb128();
                 byte[] map = reader.ReadBytes(reader.ReadLeb128());
 
@@ -246,7 +246,7 @@ namespace EvilDecompiler.JsObject
 
         JsModule ReadJsModule()
         {
-            AtomIdx name = ReadAtomIdx();
+            BcIdx name = ReadAtomIdx();
             List<ReqModuleEntry> reqs = new List<ReqModuleEntry>();
             List<ExportEntry> exports = new List<ExportEntry>();
             List<StarExportEntry> stars = new List<StarExportEntry>();
@@ -314,9 +314,9 @@ namespace EvilDecompiler.JsObject
             return new JsModule(name, reqs, exports, stars, imports, ReadObjectRec());
         }
 
-        AtomIdx ReadAtomIdx()
+        BcIdx ReadAtomIdx()
         {
-            return new AtomIdx(reader.ReadLeb128());
+            return new BcIdx(reader.ReadLeb128());
         }
 
         JsString ReadJsString()

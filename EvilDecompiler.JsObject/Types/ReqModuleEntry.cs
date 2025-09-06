@@ -3,7 +3,7 @@
     public class ReqModuleEntry
     {
 
-        public AtomIdx? ModuleNames;
+        public BcIdx? ModuleNames;
 
     }
 }

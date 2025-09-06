@@ -3,7 +3,7 @@
     public class VarDef
     {
 
-        public AtomIdx VarName;
+        public BcIdx VarName;
 
         public int ScopeLevel;
 
@@ -11,7 +11,7 @@
 
         public VarFlag Flag;
 
-        public VarDef(AtomIdx name, int level, int next, VarFlag flag)
+        public VarDef(BcIdx name, int level, int next, VarFlag flag)
         {
             VarName = name;
             ScopeLevel = level;
