@@ -59,11 +59,11 @@ namespace EvilDecompiler.Decompiler.Instruction
             else
                 GlobalVar = false;
 
-            if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref0 ||
-                opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref1 ||
-                opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref2 ||
-                opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_var_ref3)
-                Value = "var_ref" + (opCode.OPCode - QuickJsOPCode.OPCodeValue.OP_get_var_ref0).ToString();
+            if (opCode.OPCode == OPCodeValue.OP_put_var_ref0 ||
+                opCode.OPCode == OPCodeValue.OP_put_var_ref1 ||
+                opCode.OPCode == OPCodeValue.OP_put_var_ref2 ||
+                opCode.OPCode == OPCodeValue.OP_put_var_ref3)
+                Value = "var_ref" + (opCode.OPCode - OPCodeValue.OP_put_var_ref0).ToString();
         }
     }
 }
