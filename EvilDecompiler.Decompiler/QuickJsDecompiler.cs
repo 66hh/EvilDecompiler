@@ -280,13 +280,13 @@ namespace EvilDecompiler.Decompiler
                             builder.Append(new string(' ', padding * 4));
 
                             if (setVar.GlobalVar)
-                                builder.Append("Global[" + setVar.Value + "] = " + expression + ";");
+                                builder.Append("Global[\"" + setVar.Value + "\"] = " + expression + ";");
                             else
                                 builder.Append(setVar.Value + " = " + expression + ";");
 
                             if (setVar.PopNewValue)
                                 if (setVar.GlobalVar)
-                                    stack.Push("Global[" + setVar.Value + "]");
+                                    stack.Push("Global[\"" + setVar.Value + "\"]");
                                 else
                                     stack.Push(setVar.Value);
                         }
