@@ -31,7 +31,10 @@ namespace EvilDecompiler.Decompiler.Instruction
             }
             else
             {
-                Value = "\"" + operandObjects.ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"") + "\"";
+                if (operandObjects as QuickJsOperandAtom != null)
+                    Value = "\"" + operandObjects.ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"") + "\"";
+                else
+                    Value = operandObjects.ToString();
             }
         }
     }
