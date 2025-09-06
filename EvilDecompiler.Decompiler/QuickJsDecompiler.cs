@@ -301,6 +301,8 @@ namespace EvilDecompiler.Decompiler
                     default:
                         builder.Append('\n');
 
+                        string args = "";
+
                         for (int j = 0; j < curIns.getOpCode().PopCount; j++)
                         {
                             builder.Append('\n');
@@ -308,12 +310,17 @@ namespace EvilDecompiler.Decompiler
 
                             string val = stack.Pop();
 
-                            builder.Append("// stack " + j.ToString() + " total " + stack.Count().ToString() + ": " + val);
+                            builder.Append("// Stack " + j.ToString() + " Total " + stack.Count().ToString() + ": " + val);
+
+                            if (j != 0)
+                                args += ", " + val;
+                            else
+                                args += val;
                         }
 
                         for (int j = 0; j < curIns.getOpCode().PushCount; j++)
                         {
-                            stack.Push("UnsupportedValue");
+                            stack.Push("OP_" + curIns.getOpCode().Name + "(" + args + ")[" + j.ToString() + "]");
                         }
 
                         builder.Append('\n');
