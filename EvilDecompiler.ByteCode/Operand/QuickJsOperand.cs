@@ -6,7 +6,7 @@ namespace EvilDecompiler.ByteCode.Operand
     {
         public QuickJsOPCodeFormat Format;
 
-        public virtual string GetString()
+        public override string ToString()
         {
             return "/* Unsupported Operand */";
         }

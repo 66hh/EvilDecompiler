@@ -17,7 +17,7 @@ namespace EvilDecompiler.ByteCode.Operand
             AtomValue = atoms.Get((int)atomIndex & ~(1 << 31));
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             if (AtomValue == null)
             {

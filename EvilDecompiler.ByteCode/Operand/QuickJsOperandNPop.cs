@@ -11,7 +11,7 @@
             NPop = nPop;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return NPop.ToString();
         }

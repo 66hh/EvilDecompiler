@@ -8,7 +8,7 @@
             Format = Type.QuickJsOPCodeFormat.OP_FMT_none;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return "";
         }

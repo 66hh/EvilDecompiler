@@ -61,7 +61,7 @@ namespace EvilDecompiler
                                 break;
                             }
 
-                            stack.Push(qjsins.getOperand().GetString());
+                            stack.Push(qjsins.getOperand().ToString());
                         }
 
 

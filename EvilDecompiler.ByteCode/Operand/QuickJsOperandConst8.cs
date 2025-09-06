@@ -22,7 +22,7 @@ namespace EvilDecompiler.ByteCode.Operand
             JsStr = cPool[ConstIndex] as JsString;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             if (JsStr != null)
             {

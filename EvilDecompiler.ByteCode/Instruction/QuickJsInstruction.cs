@@ -185,7 +185,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public override string ToString()
         {
-            return pc.ToString() + ": " + opCode.Name + " " + operandObjects.GetString();
+            return pc.ToString() + ": " + opCode.Name + " " + operandObjects.ToString();
         }
 
     }

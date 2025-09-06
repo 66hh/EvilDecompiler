@@ -18,7 +18,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public QuickJsInstructionSetVar(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
-            Value = operandObjects.GetString();
+            Value = operandObjects.ToString();
 
             OPCodeValue code = opCode.OPCode;
 

@@ -11,7 +11,7 @@
             RefIndex = refIndex;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return "var_ref" + RefIndex.ToString();
         }

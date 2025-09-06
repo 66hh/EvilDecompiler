@@ -14,7 +14,7 @@
             ConstValue = cPool[(int)constIndex];
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return ConstIndex.ToString() + ": " + ConstValue.ToString();
         }

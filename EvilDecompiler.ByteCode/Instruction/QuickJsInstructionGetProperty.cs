@@ -15,7 +15,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public QuickJsInstructionGetProperty(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
-            Value = operandObjects.GetString();
+            Value = operandObjects.ToString();
             if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_field2 || opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_get_array_el2)
             {
                 PushOrigin = true;

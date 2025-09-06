@@ -3,8 +3,6 @@
     public interface IQuickJsOperand
     {
 
-        string GetString();
-
         byte[] GetBytes();
 
     }

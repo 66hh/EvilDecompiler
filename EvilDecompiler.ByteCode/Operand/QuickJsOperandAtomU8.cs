@@ -21,7 +21,7 @@ namespace EvilDecompiler.ByteCode.Operand
             U8 = u8;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             if (AtomValue == null)
             {

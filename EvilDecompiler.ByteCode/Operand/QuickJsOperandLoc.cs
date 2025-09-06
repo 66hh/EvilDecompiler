@@ -11,7 +11,7 @@
             LocIndex = locIndex;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return "loc" + LocIndex.ToString();
         }

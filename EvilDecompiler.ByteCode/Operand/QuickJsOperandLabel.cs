@@ -13,7 +13,7 @@ namespace EvilDecompiler.ByteCode.Operand
             Label = label;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             string addr = Label < 0 ? Label.ToString() : "+" + Label.ToString();
             return "[pc: $" + addr + "]";

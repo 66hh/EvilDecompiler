@@ -13,7 +13,7 @@ namespace EvilDecompiler.ByteCode.Instruction
 
         public QuickJsInstructionTypeOf(long pc, QuickJsOPCode opCode, byte[] operand, JsFunctionBytecode quickJsMethod, AtomSet atoms) : base(pc, opCode, operand, quickJsMethod, atoms)
         {
-            Value = operandObjects.GetString();
+            Value = operandObjects.ToString();
 
             if (opCode.OPCode == QuickJsOPCode.OPCodeValue.OP_typeof_is_function)
                 IsType = "function";

@@ -16,7 +16,7 @@ namespace EvilDecompiler.ByteCode.Operand
             U16 = u16;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return NPop.ToString() + "," + U16.ToString();
         }

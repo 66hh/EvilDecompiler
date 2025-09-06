@@ -11,7 +11,7 @@
             ArgIndex = argIndex;
         }
 
-        public override string GetString()
+        public override string ToString()
         {
             return "arg" + ArgIndex.ToString();
         }
