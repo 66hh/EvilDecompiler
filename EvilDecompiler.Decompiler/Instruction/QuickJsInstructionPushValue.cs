@@ -31,7 +31,7 @@ namespace EvilDecompiler.Decompiler.Instruction
             }
             else
             {
-                Value = operandObjects.ToString().Replace("\r", "\\r").Replace("\n", "\\n");
+                Value = "\"" + operandObjects.ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"") + "\"";
             }
         }
     }

@@ -34,7 +34,7 @@ namespace EvilDecompiler.ByteCode.Operand
             }
             else
             {
-                return "\"" + AtomValue.Value + "\",  [pc: $" + addr + "], " + U16.ToString();
+                return AtomValue.Value + ",  [pc: $" + addr + "], " + U16.ToString();
             }
         }
 

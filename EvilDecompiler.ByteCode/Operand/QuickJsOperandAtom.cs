@@ -25,7 +25,7 @@ namespace EvilDecompiler.ByteCode.Operand
             }
             else
             {
-                return "\"" + AtomValue.Value + "\"";
+                return AtomValue.Value;
             }
         }
 

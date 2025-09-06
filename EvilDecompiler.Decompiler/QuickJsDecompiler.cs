@@ -100,7 +100,7 @@ namespace EvilDecompiler.Decompiler
 
                 QuickJsInstruction curIns = ins[i];
 
-                if (false)
+                if (true)
                 {
                     // debug
                     string[] stackArray = stack.ToArray();
