@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EvilDecompiler": {
+      "commandName": "Project",
+      "commandLineArgs": "all ../../../../verify.jsc"
+    }
+  }
+}

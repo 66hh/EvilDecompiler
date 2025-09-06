@@ -1,97 +1,104 @@
 ﻿using EvilDecompiler.ByteCode;
 using EvilDecompiler.ByteCode.Instruction;
 using EvilDecompiler.Decompiler;
-using EvilDecompiler.Decompiler.Instruction;
 using EvilDecompiler.JsObject;
-using EvilDecompiler.JsObject.Types;
 using EvilDecompiler.JsObject.Types.Objects;
 
 namespace EvilDecompiler
 {
     internal class Program
     {
-        static void Main(string[] args)
+
+        static void Disassemble(string path)
         {
-            JsObjectReader reader = new JsObjectReader(new MemoryStream(File.ReadAllBytes("../../../../verify.jsc")));
-            JsModule? module = reader.JsObject as JsModule;
-            AtomSet? atoms = reader.Atoms;
+            JsObjectReader jsObjectReader = new JsObjectReader(new MemoryStream(File.ReadAllBytes(path)));
+            JsModule? module = (JsModule?)jsObjectReader.JsObject;
 
-            if (module != null && atoms != null)
+            if (module == null || jsObjectReader.Atoms == null)
             {
-                JsFunctionBytecode? func = module.FunctionObject as JsFunctionBytecode;
-                if (func != null)
-                {
-                    JsFunctionBytecode func2 = (JsFunctionBytecode)((JsFunctionBytecode)func.CPool[0]).CPool[0];
-                    QuickJsDisAssembler disasm = new QuickJsDisAssembler(new MemoryStream(func2.Bytecode), func2, atoms);
-                    QuickJsInstruction[] ins = disasm.ReadAllInstructions();
-
-                    QuickJsDecompiler dec = new QuickJsDecompiler(func, atoms);
-
-                    string output = dec.Decompile();
-
-                    Console.WriteLine(output);
-
-                    File.WriteAllText(@"../../../../verify.js", output);
-
-                    Stack<string> stack = new Stack<string>();
-
-                    int stack_count = 0;
-
-                    for (int i = 0; i < ins.Length; i++)
-                    {
-                    
-                        QuickJsInstruction qjsins = ins[i];
-
-                        int pop = qjsins.getOpCode().PopCount;
-                        int push = qjsins.getOpCode().PushCount;
-
-                        stack_count -= pop;
-                        stack_count += push;
-
-                        for (int j = 0; j < pop; j++)
-                        {
-                            //Console.WriteLine(stack.Pop());
-                        }
-
-                        for (int j = 0; j < push; j++)
-                        {
-                            // todo
-                            if (qjsins.getOpCode().Name == "add")
-                            {
-                                stack.Push("+");
-                                break;
-                            }
-
-                            stack.Push(qjsins.getOperand().ToString());
-                        }
-
-
-                        //Console.WriteLine(ins[i].ToString());
-                        //Console.WriteLine(stack_count.ToString());
-
-                        QuickJsInstructionPushValue? pv = qjsins as QuickJsInstructionPushValue;
-                        if (pv != null)
-                        {
-                            //Console.WriteLine("Push Value: " + pv.Value);
-                        }
-
-                        QuickJsInstructionGetVar? gv = qjsins as QuickJsInstructionGetVar;
-                        if (gv != null)
-                        {
-                            //Console.WriteLine("Get Var: " + gv.Value);
-                        }
-
-                    }
-
-                    byte[] data = new byte[func2.Bytecode.Length];
-                    QuickJsAssembler asm = new QuickJsAssembler(new MemoryStream(data));
-                    asm.WriteAllInstructions(ins);
-
-                    //Console.WriteLine(BitConverter.ToString(func2.Bytecode).Replace("-", ""));
-                    //Console.WriteLine(BitConverter.ToString(data).Replace("-", ""));
-                }
+                Console.WriteLine("Internal Error!");
+                return;
             }
 
+            JsFunctionBytecode functionBytecode = (JsFunctionBytecode)module.FunctionObject;
+
+            QuickJsDisAssembler disAssembler = new QuickJsDisAssembler(new MemoryStream(functionBytecode.Bytecode), functionBytecode, jsObjectReader.Atoms);
+
+            QuickJsInstruction[] ins = disAssembler.ReadAllInstructions();
+
+            string result = "";
+
+            for (int i = 0; i < ins.Length; i++)
+            {
+                result += ins[i].ToString() + "\n";
+            }
+
+            Console.WriteLine(result);
+
+            File.WriteAllText(Path.ChangeExtension(path, null) + ".txt", result);
+        }
+
+        static void Decompile(string path, bool detail)
+        {
+            JsObjectReader jsObjectReader = new JsObjectReader(new MemoryStream(File.ReadAllBytes(path)));
+            JsModule? module = (JsModule?)jsObjectReader.JsObject;
+
+            if (module == null || jsObjectReader.Atoms == null)
+            {
+                Console.WriteLine("Internal Error!");
+                return;
+            }
+
+            JsFunctionBytecode functionBytecode = (JsFunctionBytecode)module.FunctionObject;
+
+            QuickJsDecompiler decompiler = new QuickJsDecompiler(functionBytecode, jsObjectReader.Atoms);
+
+            string result = decompiler.Decompile(detail);
+
+            Console.WriteLine(result);
+
+            File.WriteAllText(Path.ChangeExtension(path, null) + ".js", result);
+        }
+
+        static void PrintUsages()
+        {
+            Console.WriteLine("EvilDecompiler.exe <all|disassemble|decompile|decompile-detail> [jsc file]");
+        }
+
+        static void Main(string[] args)
+        {
+            if (args.Length != 2)
+            {
+                PrintUsages();
+                return;
+            }
+
+            if (!File.Exists(args[1]))
+            {
+                Console.WriteLine("File " + args[1] + " does not exist!");
+                return;
+            }
+
+            switch (args[0])
+            {
+                case "all":
+                    Disassemble(args[1]);
+                    Decompile(args[1], true);
+                    break;
+                case "disassemble":
+                    Disassemble(args[1]);
+                    break;
+                case "decompile":
+                    Decompile(args[1], false);
+                    break;
+                case "decompile-detail":
+                    Decompile(args[1], true);
+                    break;
+
+                default:
+                    PrintUsages();
+                    return;
+            }
         }
     }
 }

@@ -1,0 +1,7 @@
+0: push_this 
+1: if_false8 [pc: $+10]
+3: fclosure8 [bytecode 43942917]
+5: set_name default
+10: put_var_ref0 0
+11: return_undef 
+12: return_undef 

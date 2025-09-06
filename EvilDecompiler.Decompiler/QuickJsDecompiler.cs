@@ -77,7 +77,7 @@ namespace EvilDecompiler.Decompiler
             builder.Append(")");
         }
 
-        public string Decompile(int padding = 0)
+        public string Decompile(bool detail = false, int padding = 0)
         {
 
             StringBuilder builder = new StringBuilder();
@@ -100,7 +100,7 @@ namespace EvilDecompiler.Decompiler
 
                 QuickJsInstruction curIns = ins[i];
 
-                if (false)
+                if (detail)
                 {
                     // debug
                     string[] stackArray = stack.ToArray();
@@ -200,7 +200,7 @@ namespace EvilDecompiler.Decompiler
                             {
                                 QuickJsDecompiler closureDecompiler = new QuickJsDecompiler(closure.Function, atomSet);
                                 builder.Append('\n');
-                                builder.Append(closureDecompiler.Decompile(padding));
+                                builder.Append(closureDecompiler.Decompile(detail, padding));
                                 stack.Push(funcName);
                             }
                             catch (Exception e)
